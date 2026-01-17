@@ -5,10 +5,11 @@ using UnityEngine.Rendering.Universal;
 public class BlinkController : MonoBehaviour
 {
     [Header("Blink Settings")]
-    [SerializeField] private float _blinkDuration = 1f;
+    [SerializeField] private float _blinkWarning = 0.5f;
     [SerializeField] private float _blinkCooldown = 10f;
-    [SerializeField] private float _blinkCloseTime = 0.15f;
-    [SerializeField] private float _blinkOpenTime = 0.2f;
+    [SerializeField] private float _blinkOpenTime = 0.1f;
+    [SerializeField] private float _blinkDuration = 0.5f;
+    [SerializeField] private float _blinkCloseTime = 0.25f;
 
     [Header("Blink Indicator")]
     [SerializeField] private GameObject _blinkIndicator;
@@ -59,9 +60,13 @@ public class BlinkController : MonoBehaviour
 
     private IEnumerator Blink()
     {
+        // Blink warning
+        _blinkIndicator.SetActive(true);
+        yield return new WaitForSeconds(_blinkWarning);
+
         // Start blink
         IsBlinking = true;
-        _blinkIndicator.SetActive(true);
+        _blinkAnimator.SetTrigger("StartBlink");
         yield return StartCoroutine(
             AnimateLightRadius(_originalOuterRadius, 0f, _blinkCloseTime)
         );
