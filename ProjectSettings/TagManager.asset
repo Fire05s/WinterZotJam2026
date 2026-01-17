@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Exit Point
+  - NPC
+  - Struct
+  - Item
   layers:
   - Default
   - TransparentFX
