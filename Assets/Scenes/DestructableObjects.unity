@@ -1583,7 +1583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5165a73ae1b02a42b9f83c6a433bb9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnvironmentScript
-  directionalPointer: {fileID: 0}
+  directionalPointer: {fileID: 889683902}
   normalObject: {fileID: 1791137113}
   destroyedObject: {fileID: 1350732314}
   broken: 0

@@ -19,7 +19,7 @@ public class EnvironmentScript : MonoBehaviour
     private directionEnum direction;
     private Vector2 VecDir;
 
-    public Transform PositionTest; // FOR TESTING ONLY
+    public Transform PositionTest; // FOR TESTING ONLY, TODO: REMOVE
 
     private void Start() {
         if (!directionalPointer) {
@@ -37,7 +37,7 @@ public class EnvironmentScript : MonoBehaviour
                 direction = directionEnum.Right;
             }
         }
-        hit(new Vector2(PositionTest.position.x, PositionTest.position.y)); // FOR TESTING ONLY
+        hit(new Vector2(PositionTest.position.x, PositionTest.position.y)); // FOR TESTING ONLY, TODO: REMOVE
     }
 
     private float offsetVal = 1f; // Offset is to prevent side hits, increase further to reduce possible side hits
