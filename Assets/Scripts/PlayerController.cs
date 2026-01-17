@@ -1,28 +1,35 @@
 using System.Collections;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Required Components")]
     [SerializeField] private Camera _camera;
 
+    [Header("Movement")]
     [SerializeField] private float _speedNormal;
     [SerializeField] private float _speedMultiplier;
 
+    [Header("Interact")]
     [SerializeField] private LayerMask _interactLayer;
+    [SerializeField] private float _interactionCooldown;
     [SerializeField] private float _interactRadius;
 
+    [Header("Attack")]
     [SerializeField] private float _attackCooldown;
     [SerializeField] private float _attackRadius;
     [SerializeField] private float _attackRange;
     
+    // Data related to Player Logic
     private InputSystem_Actions _inputSystem;
     private GameObject _currentlyHeldItem;
 
     private Vector3 _moveDirection;
     private float _speed;
     private bool _canAttack;
+
 
     void Awake()
     {
@@ -49,21 +56,37 @@ public class PlayerController : MonoBehaviour
         transform.position = transform.position + _moveDirection * _speed * Time.deltaTime;
     }
 
+    // Helper Functions
+
     private Vector3 GetCurrentMouseWorldPosition()
     {
         return _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
     }
 
+    // User Input
+
     public void OnInteract(InputAction.CallbackContext ctx)
     {
-        Collider2D collider = Physics2D.OverlapCircle(transform.position, _interactRadius, _interactLayer);
-        if (collider) 
+        Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, _interactRadius, _interactLayer);
+
+        if (colliderArray.Count() == 0) return;
+
+        Collider2D closestObject = colliderArray[0];
+        for (int index = 1; index < colliderArray.Count(); index++)
         {
-            _currentlyHeldItem = collider.gameObject;
-            collider.gameObject.SetActive(value: false);
+            if (Vector2.Distance(transform.position, closestObject.transform.position) > Vector2.Distance(transform.position, colliderArray[index].transform.position)){
+                closestObject = colliderArray[index];
+            }
         }
 
-        if (_currentlyHeldItem) Debug.Log(_currentlyHeldItem.name);
+        if (closestObject.CompareTag("Struct"))
+        {
+            ToppleInteraction(closestObject);
+        }
+        else if (closestObject.CompareTag("Item"))
+        {
+            PickupInteraction(closestObject);
+        }
     }
 
     public void OnAttack(InputAction.CallbackContext ctx)
@@ -80,6 +103,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Functions that Updates Player Data
+
     public IEnumerator SpeedIncrease(float duration)
     {
         _speed = _speedNormal * _speedMultiplier;
@@ -87,9 +112,32 @@ public class PlayerController : MonoBehaviour
         _speed = _speedNormal;
     }
 
-    private void ThrowAttack()
+    // Interact Actions
+
+    private void ToppleInteraction(Collider2D collider)
     {
-        
+        // Call on script to topple the structure
+    }
+
+    private void PickupInteraction(Collider2D collider)
+    {
+        if (_currentlyHeldItem) return;
+
+        _currentlyHeldItem = collider.gameObject;
+        collider.gameObject.SetActive(value: false);
+    }
+
+    // Attack Actions
+
+    private IEnumerator ThrowAttack()
+    {
+         _canAttack = false;
+         _currentlyHeldItem.transform.position = transform.position;
+         _currentlyHeldItem.SetActive(value: true);
+
+         yield return new WaitForSeconds(_attackCooldown);
+
+         _canAttack = true;
     }
 
     private IEnumerator SlashAttack()
@@ -103,7 +151,7 @@ public class PlayerController : MonoBehaviour
             {
                 // Deal damage to NPC  
             }
-            else if (collider.CompareTag("Interactable"))
+            else if (collider.CompareTag("Struct"))
             {
                 // Play attack sound
             }
