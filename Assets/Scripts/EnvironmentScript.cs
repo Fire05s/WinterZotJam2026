@@ -6,6 +6,7 @@ public class EnvironmentScript : MonoBehaviour
     [SerializeField] GameObject normalObject;
     [SerializeField] GameObject destroyedObject;
     public bool broken = false;
+    [SerializeField] bool multiHit;
     public float soundRadius;
     public GameObject SoundCircle;
     private enum directionEnum {
@@ -40,24 +41,34 @@ public class EnvironmentScript : MonoBehaviour
         hit(new Vector2(PositionTest.position.x, PositionTest.position.y)); // FOR TESTING ONLY, TODO: REMOVE
     }
 
-    private float offsetVal = 1f; // Offset is to prevent side hits, increase further to reduce possible side hits
+    private float offsetVal = 0f; // Offset is to prevent side hits, increase further to reduce possible side hits
     public void hit(Vector2 Position) { // Player's position
-        if (!broken) {
-            if (direction == directionEnum.None) {
-                Debug.Log("Break!");
+        if (multiHit) {
+            if (!broken) {
+                Debug.Log("First Hit!");
                 collapse();
-            } else if (direction == directionEnum.Up && Position.y < gameObject.transform.position.y - offsetVal) { // Player positioned below
-                Debug.Log("Hit up!");
-                collapse();
-            } else if (direction == directionEnum.Down && Position.y > gameObject.transform.position.y + offsetVal) { // Player positioned above
-                Debug.Log("Hit down!");
-                collapse();
-            } else if (direction == directionEnum.Left && Position.x > gameObject.transform.position.x + offsetVal) { // Player positioned right
-                Debug.Log("Hit left!");
-                collapse();
-            } else if (direction == directionEnum.Right && Position.x < gameObject.transform.position.x - offsetVal) { // Player positioned left
-                Debug.Log("Hit right!");
-                collapse();
+            } else {
+                Debug.Log("Repeat Hit!");
+                soundWave();
+            }
+        } else {
+            if (!broken) {
+                if (direction == directionEnum.None) {
+                    Debug.Log("Break!");
+                    collapse();
+                } else if (direction == directionEnum.Up && Position.y < gameObject.transform.position.y - offsetVal) { // Player positioned below
+                    Debug.Log("Hit up!");
+                    collapse();
+                } else if (direction == directionEnum.Down && Position.y > gameObject.transform.position.y + offsetVal) { // Player positioned above
+                    Debug.Log("Hit down!");
+                    collapse();
+                } else if (direction == directionEnum.Left && Position.x > gameObject.transform.position.x + offsetVal) { // Player positioned right
+                    Debug.Log("Hit left!");
+                    collapse();
+                } else if (direction == directionEnum.Right && Position.x < gameObject.transform.position.x - offsetVal) { // Player positioned left
+                    Debug.Log("Hit right!");
+                    collapse();
+                }
             }
         }
     }
