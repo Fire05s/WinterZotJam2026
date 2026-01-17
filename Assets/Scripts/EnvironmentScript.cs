@@ -8,6 +8,7 @@ public class EnvironmentScript : MonoBehaviour
     public bool broken = false;
     [SerializeField] bool multiHit;
     public float soundRadius;
+    private Vector2 soundOrigin;
     private enum directionEnum {
         Default, // This should only happen on an error
         None,
@@ -40,6 +41,8 @@ public class EnvironmentScript : MonoBehaviour
                 direction = directionEnum.Right;
             }
         }
+
+        soundOrigin = new Vector2(destroyedObject.transform.position.x, destroyedObject.transform.position.y);
 
         hit(new Vector2(PositionTest.position.x, PositionTest.position.y)); // FOR TESTING ONLY, TODO: REMOVE
     }
@@ -83,16 +86,13 @@ public class EnvironmentScript : MonoBehaviour
         soundWave();
     }
 
-    [SerializeField] LayerMask enemyLayer;
     private void soundWave() { // Eminate out from radius
-        Debug.Log("Sound wave distraction");
-        // TODO: Change collider mask to only check enemies
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(new Vector2(destroyedObject.transform.position.x, destroyedObject.transform.position.y), soundRadius, enemyLayer);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(soundOrigin, soundRadius);
         foreach (var hitCollider in hitColliders) {
-            if (hitCollider.gameObject == this.gameObject) {
+            if (hitCollider.gameObject == this.gameObject || hitCollider.gameObject.CompareTag("NPC") == false) {
                 continue;
             }
-            // Alert the enemy
+            hitCollider.gameObject.GetComponent<Enemy>().AlertEnemy(soundOrigin);
         }
     }
 }
