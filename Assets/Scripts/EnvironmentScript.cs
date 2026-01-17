@@ -55,19 +55,19 @@ public class EnvironmentScript : MonoBehaviour
         } else {
             if (!broken) {
                 if (direction == directionEnum.None) {
-                    Debug.Log("Break!");
+                    //Debug.Log("Break!");
                     collapse();
                 } else if (direction == directionEnum.Up && Position.y < gameObject.transform.position.y - offsetVal) { // Player positioned below
-                    Debug.Log("Hit up!");
+                    //Debug.Log("Hit up!");
                     collapse();
                 } else if (direction == directionEnum.Down && Position.y > gameObject.transform.position.y + offsetVal) { // Player positioned above
-                    Debug.Log("Hit down!");
+                    //Debug.Log("Hit down!");
                     collapse();
                 } else if (direction == directionEnum.Left && Position.x > gameObject.transform.position.x + offsetVal) { // Player positioned right
-                    Debug.Log("Hit left!");
+                    //Debug.Log("Hit left!");
                     collapse();
                 } else if (direction == directionEnum.Right && Position.x < gameObject.transform.position.x - offsetVal) { // Player positioned left
-                    Debug.Log("Hit right!");
+                    //Debug.Log("Hit right!");
                     collapse();
                 }
             }
@@ -79,20 +79,20 @@ public class EnvironmentScript : MonoBehaviour
         // TODO: Move player to safety if needed
         normalObject.SetActive(false);
         destroyedObject.SetActive(true);
-        Debug.Log("Play Animation"); // TODO: Implement animation
+        //Debug.Log("Play Animation"); // TODO: Implement animation
         soundWave();
     }
 
     [SerializeField] LayerMask enemyLayer;
     private void soundWave() { // Eminate out from radius
         Debug.Log("Sound wave distraction");
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(new Vector2(destroyedObject.transform.position.x, destroyedObject.transform.position.y), soundRadius); //, enemyLayer);
-        Debug.Log(hitColliders);
+        // TODO: Change collider mask to only check enemies
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(new Vector2(destroyedObject.transform.position.x, destroyedObject.transform.position.y), soundRadius, enemyLayer);
         foreach (var hitCollider in hitColliders) {
-            /*if (hitCollider.gameObject == this.gameObject) {
+            if (hitCollider.gameObject == this.gameObject) {
                 continue;
-            }*/
-            Debug.Log("Collider: " + hitCollider.gameObject.name);
+            }
+            // Alert the enemy
         }
     }
 }
