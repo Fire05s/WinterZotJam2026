@@ -1,0 +1,98 @@
+using UnityEngine;
+
+public class EnvironmentScript : MonoBehaviour
+{
+    [SerializeField] GameObject directionalPointer;
+    [SerializeField] GameObject normalObject;
+    [SerializeField] GameObject destroyedObject;
+    public bool broken = false;
+    [SerializeField] bool multiHit;
+    public float soundRadius;
+    private enum directionEnum {
+        Default, // This should only happen on an error
+        None,
+        Up,
+        Down,
+        Left,
+        Right,
+    }
+    private directionEnum direction;
+    private Vector2 VecDir;
+
+    private CircleCollider2D soundCircle;
+
+    public Transform PositionTest; // FOR TESTING ONLY, TODO: REMOVE
+
+    private void Start() {
+        // Sets the direction of the object
+        if (!directionalPointer) {
+            direction = directionEnum.None;
+        } else {
+            directionalPointer.SetActive(false);
+            VecDir = new Vector2(gameObject.transform.up.x, gameObject.transform.up.y);
+            if (VecDir.y >= 0.5f) {
+                direction = directionEnum.Up;
+            } else if (VecDir.y < -0.5f) {
+                direction = directionEnum.Down;
+            } else if (VecDir.x < -0.5f) {
+                direction = directionEnum.Left;
+            } else if (VecDir.x >= 0.5f) {
+                direction = directionEnum.Right;
+            }
+        }
+
+        hit(new Vector2(PositionTest.position.x, PositionTest.position.y)); // FOR TESTING ONLY, TODO: REMOVE
+    }
+
+    private float offsetVal = 0f; // Offset is to prevent side hits, increase further to reduce possible side hits
+    public void hit(Vector2 Position) { // Player's position
+        if (multiHit) {
+            if (!broken) { // First multi-hit
+                collapse();
+            } else { // Follow-up multi-hit
+                soundWave();
+            }
+        } else {
+            if (!broken) {
+                if (direction == directionEnum.None) {
+                    //Debug.Log("Break!");
+                    collapse();
+                } else if (direction == directionEnum.Up && Position.y < gameObject.transform.position.y - offsetVal) { // Player positioned below
+                    //Debug.Log("Hit up!");
+                    collapse();
+                } else if (direction == directionEnum.Down && Position.y > gameObject.transform.position.y + offsetVal) { // Player positioned above
+                    //Debug.Log("Hit down!");
+                    collapse();
+                } else if (direction == directionEnum.Left && Position.x > gameObject.transform.position.x + offsetVal) { // Player positioned right
+                    //Debug.Log("Hit left!");
+                    collapse();
+                } else if (direction == directionEnum.Right && Position.x < gameObject.transform.position.x - offsetVal) { // Player positioned left
+                    //Debug.Log("Hit right!");
+                    collapse();
+                }
+            }
+        }
+    }
+
+    private void collapse() { // Move player to safety if needed
+        broken = true;
+        // TODO: Move player to safety if needed
+        normalObject.SetActive(false);
+        destroyedObject.SetActive(true);
+        //Debug.Log("Play Animation"); // TODO: Implement animation
+        soundWave();
+    }
+
+    [SerializeField] LayerMask enemyLayer;
+    private void soundWave() { // Eminate out from radius
+        Debug.Log("Sound wave distraction");
+        // TODO: Change collider mask to only check enemies
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(new Vector2(destroyedObject.transform.position.x, destroyedObject.transform.position.y), soundRadius, enemyLayer);
+        foreach (var hitCollider in hitColliders) {
+            if (hitCollider.gameObject == this.gameObject) {
+                continue;
+            }
+            // Alert the enemy
+        }
+    }
+}
