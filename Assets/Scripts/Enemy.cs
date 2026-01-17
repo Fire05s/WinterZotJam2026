@@ -128,6 +128,14 @@ public class Enemy : MonoBehaviour
     }
 
     // HELPERS
+
+    public void KillEnemy()
+    {
+        // maybe add enemy death animations here
+        GameManager.Instance.OnEnemyDeath();
+        Destroy(gameObject);
+    }
+
     public void AlertEnemy(Vector2 location)
     {
         _lastAlertedPosition = location;

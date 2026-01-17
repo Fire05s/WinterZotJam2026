@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DoorController _exit;
 
     public static GameManager Instance;
+    private int _enemiesAlive;
 
     private void Awake()
     {
@@ -22,6 +23,21 @@ public class GameManager : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        _enemiesAlive = GameObject.FindGameObjectsWithTag("NPC").Length;
+    }
+
+    public void OnEnemyDeath()
+    {
+        _enemiesAlive--;
+
+        if (_enemiesAlive <= 0)
+        {
+            _exit.OpenDoor();
+        }
     }
 
     public void OpenExit()

@@ -5,11 +5,9 @@ using UnityEngine.Rendering.Universal;
 public class BlinkController : MonoBehaviour
 {
     [Header("Blink Settings")]
-    [SerializeField] private float _blinkWarning = 0.5f;
-    [SerializeField] private float _blinkCooldown = 10f;
-    [SerializeField] private float _blinkOpenTime = 0.1f;
-    [SerializeField] private float _blinkDuration = 0.5f;
-    [SerializeField] private float _blinkCloseTime = 0.25f;
+    [SerializeField] private float _blinkReactionTime = 0.3f;
+    [SerializeField] private float _passiveCooldown = 5f;
+    [SerializeField] private float _passiveBlinkDuration = 0.1f;
 
     [Header("Blink Indicator")]
     [SerializeField] private GameObject _blinkIndicator;
@@ -31,7 +29,7 @@ public class BlinkController : MonoBehaviour
         // Disables indicator on start
         if (_blinkIndicator.gameObject.activeSelf) _blinkIndicator.gameObject.SetActive(false);
         _blinkAnimator = _blinkIndicator.GetComponent<Animator>();
-        _blinkTimer = _blinkCooldown;
+        _blinkTimer = _passiveCooldown;
 
         // Cache original light values
         _originalOuterRadius = _visionLight.pointLightOuterRadius;
@@ -42,8 +40,8 @@ public class BlinkController : MonoBehaviour
     {
         if (_blinkTimer <= 0)
         {
-            StartBlink();
-            _blinkTimer = _blinkCooldown;
+            PassiveBlink();
+            _blinkTimer = _passiveCooldown;
         }
         else
         {
@@ -51,32 +49,48 @@ public class BlinkController : MonoBehaviour
         }
     }
 
-    public void StartBlink()
+    private void PassiveBlink()
+    {
+        if (IsBlinking) return;
+        StartCoroutine(DoPassiveBlink());
+    }
+
+    private IEnumerator DoPassiveBlink()
+    {
+        // Purely visual
+        _visionLight.pointLightOuterRadius = 0f;
+        _visionLight.pointLightInnerRadius = 0f;
+        yield return new WaitForSeconds(_passiveBlinkDuration);
+        _visionLight.pointLightOuterRadius = _originalOuterRadius;
+        _visionLight.pointLightInnerRadius = _originalInnerRadius;
+    }
+
+    public void StartBlink(float closeTime, float duration, float openTime, bool isWarned = false)
     {
         if (IsBlinking) return;
         if (_blinkCoroutine != null) StopCoroutine(_blinkCoroutine);
-        _blinkCoroutine = StartCoroutine(Blink());
+        _blinkCoroutine = StartCoroutine(Blink(closeTime, duration, openTime, isWarned));
     }
 
-    private IEnumerator Blink()
+    private IEnumerator Blink(float close, float duration, float open, bool warning)
     {
         // Blink warning
         _blinkIndicator.SetActive(true);
-        yield return new WaitForSeconds(_blinkWarning);
+        if (warning) yield return new WaitForSeconds(_blinkReactionTime);
 
         // Start blink
         IsBlinking = true;
         _blinkAnimator.SetTrigger("StartBlink");
         yield return StartCoroutine(
-            AnimateLightRadius(_originalOuterRadius, 0f, _blinkCloseTime)
+            AnimateLightRadius(_originalOuterRadius, 0f, close)
         );
 
-        yield return new WaitForSeconds(_blinkDuration);
+        yield return new WaitForSeconds(duration);
 
         // End blink
         _blinkAnimator.SetTrigger("EndBlink");
         yield return StartCoroutine(
-            AnimateLightRadius(0f, _originalOuterRadius, _blinkOpenTime)
+            AnimateLightRadius(0f, _originalOuterRadius, open)
         );
 
         _blinkIndicator.SetActive(false);
