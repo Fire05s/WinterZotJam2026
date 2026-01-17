@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("Scenes")]
-    [SerializeField] private SceneAsset _playerWinScene;
+    [SerializeField] private SceneAsset _nextScene;
     [SerializeField] private SceneAsset _playerLoseScene;
 
     [Header("Exit")]
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     public void PlayerWin()
     {
         Debug.Log("Player Wins");
-        //SceneManager.LoadScene(_playerWinScene.name);
+        //SceneManager.LoadScene(_nextScene.name);
     }
 
     public void PlayerLose()
