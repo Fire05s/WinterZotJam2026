@@ -11,7 +11,8 @@ public class Enemy : MonoBehaviour
     private enum EnemyState {
         Idle,
         Patrol,
-        Alert
+        Alert,
+        Flee
     };
 
     [Header("Nav Agent")]
@@ -20,7 +21,9 @@ public class Enemy : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float _patrolSpeed = 2f;
     [SerializeField] private float _chaseSpeed = 3.5f;
+    [SerializeField] private float _fleeSpeed = 4f;
     [SerializeField] private float _waitTime = 1f;
+    [SerializeField] private float _inspectionTime = 1f;
 
     [Header("Vision")]
     [SerializeField] private float _viewDistance = 5f;
@@ -36,8 +39,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private LayerMask _obstacleLayer;
 
-    [Header("Component References")]
-    [SerializeField] private Transform _player;
+    private Transform _player;
 
     private int _patrolIndex;
     private float _waitCounter;
@@ -46,7 +48,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        //_exitPoint = GameObject.FindGameObjectWithTag("Exit Point").transform;
+        _exitPoint = GameObject.FindGameObjectWithTag("Exit Point").transform;
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
         _waitCounter = _waitTime;
@@ -55,6 +57,10 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         UpdateFOV();
+        if (CanSeePlayer())
+        {
+            currentState = EnemyState.Flee;
+        }
 
         switch (currentState)
         {
@@ -67,6 +73,9 @@ public class Enemy : MonoBehaviour
             case EnemyState.Alert:
                 Alert();
                 break;
+            case EnemyState.Flee:
+                Flee();
+                break;
         }
     }
 
@@ -75,7 +84,6 @@ public class Enemy : MonoBehaviour
     {
         if (_waitCounter <= 0)
         {
-            _waitCounter = _waitTime;
             currentState = EnemyState.Patrol;
         }
         else
@@ -94,7 +102,7 @@ public class Enemy : MonoBehaviour
         if (Vector2.Distance(transform.position, target.position) < 0.1f)
         {
             _patrolIndex = (_patrolIndex + 1) % _patrolPoints.Length;
-            currentState = EnemyState.Idle;
+            SetIdle(_waitTime);
         }
     }
 
@@ -105,13 +113,19 @@ public class Enemy : MonoBehaviour
         // Location reached
         if (Vector2.Distance(transform.position, _lastAlertedPosition) < 0.1f)
         {
-            currentState = EnemyState.Idle;
+            SetIdle(_inspectionTime);
         }
     }
 
     private void Flee()
     {
-        MoveTowards(_exitPoint.position, _chaseSpeed);
+        MoveTowards(_exitPoint.position, _fleeSpeed);
+
+        if (Vector2.Distance(transform.position, _exitPoint.position) < 0.1f)
+        {
+            Debug.Log("Player Lost");
+            Destroy(gameObject);
+        }
     }
 
     // HELPERS
@@ -119,6 +133,12 @@ public class Enemy : MonoBehaviour
     {
         _lastAlertedPosition = location;
         currentState = EnemyState.Alert;
+    }
+
+    private void SetIdle(float idleTime)
+    {
+        _waitCounter = idleTime;
+        currentState = EnemyState.Idle;
     }
 
     private void MoveTowards(Vector2 target, float speed)
