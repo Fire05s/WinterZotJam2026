@@ -46,6 +46,7 @@ public class Enemy : MonoBehaviour
     private float _waitCounter;
     private Vector2 _lastDirection = Vector2.right; // Facing direction
     private Vector3 _lastAlertedPosition; // Where the alerted enemy will move to
+    private bool _isFleeing = false;
 
     private void Start()
     {
@@ -121,13 +122,9 @@ public class Enemy : MonoBehaviour
     private void Flee()
     {
         MoveTowards(_exitPoint.position, _fleeSpeed);
-
-        // Exit reached
-        if (Vector2.Distance(transform.position, _exitPoint.position) < 0.1f)
-        {
-            Debug.Log("Player Lost");
-            Destroy(gameObject);
-        }
+        if (_isFleeing) return;
+        _isFleeing = true;
+        GameManager.Instance.OpenExit();
     }
 
     // HELPERS
