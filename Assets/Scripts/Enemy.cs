@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
@@ -13,6 +14,9 @@ public class Enemy : MonoBehaviour
         Alert
     };
 
+    [Header("Nav Agent")]
+    [SerializeField] private NavMeshAgent _agent;
+
     [Header("Movement")]
     [SerializeField] private float _patrolSpeed = 2f;
     [SerializeField] private float _chaseSpeed = 3.5f;
@@ -21,6 +25,7 @@ public class Enemy : MonoBehaviour
     [Header("Vision")]
     [SerializeField] private float _viewDistance = 5f;
     [SerializeField] private float _viewAngle = 60f;
+    [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private Transform _fov;
 
     [Header("Patrol")]
@@ -32,7 +37,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] private LayerMask _obstacleLayer;
 
     [Header("Component References")]
-    [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _player;
 
     private int _patrolIndex;
@@ -42,7 +46,9 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _exitPoint = GameObject.FindGameObjectWithTag("Exit Point").transform;
+        //_exitPoint = GameObject.FindGameObjectWithTag("Exit Point").transform;
+        _agent.updateRotation = false;
+        _agent.updateUpAxis = false;
         _waitCounter = _waitTime;
     }
 
@@ -74,7 +80,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            _rb.linearVelocity = Vector2.zero;
+            _agent.SetDestination(transform.position);
             _waitCounter -= Time.deltaTime;
         }
     }
@@ -117,9 +123,9 @@ public class Enemy : MonoBehaviour
 
     private void MoveTowards(Vector2 target, float speed)
     {
-        Vector2 dir = (target - (Vector2)transform.position).normalized;
-        _rb.linearVelocity = dir * speed;
-        _lastDirection = dir;
+        _agent.speed = speed;
+        _agent.SetDestination(target);
+        _lastDirection = _agent.velocity.normalized;
     }
 
     private bool CanSeePlayer()
@@ -146,7 +152,7 @@ public class Enemy : MonoBehaviour
         _fov.rotation = Quaternion.Lerp(
             _fov.rotation,
             Quaternion.Euler(0, 0, angle),
-            Time.deltaTime * 10f
+            Time.deltaTime * _rotationSpeed
         );
     }
 
