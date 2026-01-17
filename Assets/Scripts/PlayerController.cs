@@ -7,10 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Required Components")]
     [SerializeField] private Camera _camera;
+    [SerializeField] private Rigidbody2D _rigidbody;
 
     [Header("Movement")]
     [SerializeField] private float _speedNormal;
     [SerializeField] private float _speedMultiplier;
+    [SerializeField] private float _smoothTime;
 
     [Header("Interact")]
     [SerializeField] private LayerMask _interactLayer;
@@ -27,6 +29,8 @@ public class PlayerController : MonoBehaviour
     private GameObject _currentlyHeldItem;
 
     private Vector3 _moveDirection;
+    private Vector3 _smoothMoveInput;
+    private Vector2 _smoothMoveVelocity;
     private float _speed;
     private bool _canAttack;
 
@@ -53,14 +57,18 @@ public class PlayerController : MonoBehaviour
     {
         _moveDirection = _inputSystem.Player.Move.ReadValue<Vector3>().normalized;
 
-        transform.position = transform.position + _moveDirection * _speed * Time.deltaTime;
+        _smoothMoveInput = Vector2.SmoothDamp(_smoothMoveInput, _moveDirection, ref _smoothMoveVelocity, _smoothTime);
+
+        _rigidbody.linearVelocity = _smoothMoveInput * _speed;
     }
 
     // Helper Functions
 
     private Vector3 GetCurrentMouseWorldPosition()
     {
-        return _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector3 mouseDirection = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        mouseDirection.z = 0;
+        return mouseDirection;
     }
 
     // User Input
@@ -95,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
         if (_currentlyHeldItem)
         {
-            ThrowAttack();
+            StartCoroutine(ThrowAttack());
         }
         else
         {
@@ -131,13 +139,18 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator ThrowAttack()
     {
-         _canAttack = false;
-         _currentlyHeldItem.transform.position = transform.position;
-         _currentlyHeldItem.SetActive(value: true);
+        _canAttack = false;
+        _currentlyHeldItem.transform.position = transform.position;
+        _currentlyHeldItem.SetActive(value: true);
 
-         yield return new WaitForSeconds(_attackCooldown);
+        ItemProjectile projectile = _currentlyHeldItem.GetComponent<ItemProjectile>();
+        projectile.InstantiateProjectile(GetCurrentMouseWorldPosition());
+        projectile.enabled = true;
 
-         _canAttack = true;
+        _currentlyHeldItem = null;
+        yield return new WaitForSeconds(_attackCooldown);
+
+        _canAttack = true;
     }
 
     private IEnumerator SlashAttack()
