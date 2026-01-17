@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _viewAngle = 60f;
     [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private Transform _fov;
+    [SerializeField] private BlinkController _blinkController;
 
     [Header("Patrol")]
     [SerializeField] private Transform[] _patrolPoints;
@@ -121,6 +122,7 @@ public class Enemy : MonoBehaviour
     {
         MoveTowards(_exitPoint.position, _fleeSpeed);
 
+        // Exit reached
         if (Vector2.Distance(transform.position, _exitPoint.position) < 0.1f)
         {
             Debug.Log("Player Lost");
@@ -150,18 +152,20 @@ public class Enemy : MonoBehaviour
 
     private bool CanSeePlayer()
     {
+        if (_blinkController.IsBlinking) return false; // can't see while blinking
+
         Collider2D hit = Physics2D.OverlapCircle(transform.position, _viewDistance, _playerLayer);
-        if (!hit) return false;
+        if (!hit) return false; // no player in range
 
         _player = hit.transform;
 
         Vector2 dirToPlayer = (_player.position - transform.position).normalized;
         float angle = Vector2.Angle(_lastDirection, dirToPlayer);
-        if (angle > _viewAngle / 2f) return false;
+        if (angle > _viewAngle / 2f) return false; // player not in fov
 
         RaycastHit2D ray = Physics2D.Raycast(transform.position, dirToPlayer, _viewDistance, _obstacleLayer);
 
-        return ray.collider == null;
+        return ray.collider == null; // false if there's a wall in the way
     }
 
     private void UpdateFOV()
@@ -176,6 +180,7 @@ public class Enemy : MonoBehaviour
         );
     }
 
+    // Draws FOV Gizmos
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
