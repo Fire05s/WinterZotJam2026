@@ -8,7 +8,6 @@ public class EnvironmentScript : MonoBehaviour
     public bool broken = false;
     [SerializeField] bool multiHit;
     public float soundRadius;
-    public GameObject SoundCircle;
     private enum directionEnum {
         Default, // This should only happen on an error
         None,
@@ -20,35 +19,37 @@ public class EnvironmentScript : MonoBehaviour
     private directionEnum direction;
     private Vector2 VecDir;
 
+    private CircleCollider2D soundCircle;
+
     public Transform PositionTest; // FOR TESTING ONLY, TODO: REMOVE
 
     private void Start() {
+        // Sets the direction of the object
         if (!directionalPointer) {
             direction = directionEnum.None;
         } else {
             directionalPointer.SetActive(false);
             VecDir = new Vector2(gameObject.transform.up.x, gameObject.transform.up.y);
-            if (VecDir.y > 0.5f) {
+            if (VecDir.y >= 0.5f) {
                 direction = directionEnum.Up;
             } else if (VecDir.y < -0.5f) {
                 direction = directionEnum.Down;
             } else if (VecDir.x < -0.5f) {
                 direction = directionEnum.Left;
-            } else if (VecDir.x > 0.5f) {
+            } else if (VecDir.x >= 0.5f) {
                 direction = directionEnum.Right;
             }
         }
+
         hit(new Vector2(PositionTest.position.x, PositionTest.position.y)); // FOR TESTING ONLY, TODO: REMOVE
     }
 
     private float offsetVal = 0f; // Offset is to prevent side hits, increase further to reduce possible side hits
     public void hit(Vector2 Position) { // Player's position
         if (multiHit) {
-            if (!broken) {
-                Debug.Log("First Hit!");
+            if (!broken) { // First multi-hit
                 collapse();
-            } else {
-                Debug.Log("Repeat Hit!");
+            } else { // Follow-up multi-hit
                 soundWave();
             }
         } else {
@@ -75,15 +76,23 @@ public class EnvironmentScript : MonoBehaviour
 
     private void collapse() { // Move player to safety if needed
         broken = true;
+        // TODO: Move player to safety if needed
         normalObject.SetActive(false);
         destroyedObject.SetActive(true);
-        Debug.Log("Play Animation");
+        Debug.Log("Play Animation"); // TODO: Implement animation
         soundWave();
     }
 
+    [SerializeField] LayerMask enemyLayer;
     private void soundWave() { // Eminate out from radius
         Debug.Log("Sound wave distraction");
-        SoundCircle.transform.localScale = new Vector3(soundRadius, soundRadius, 1f);
-        // Detect everything in range (Make condition for NPC)
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(new Vector2(destroyedObject.transform.position.x, destroyedObject.transform.position.y), soundRadius); //, enemyLayer);
+        Debug.Log(hitColliders);
+        foreach (var hitCollider in hitColliders) {
+            /*if (hitCollider.gameObject == this.gameObject) {
+                continue;
+            }*/
+            Debug.Log("Collider: " + hitCollider.gameObject.name);
+        }
     }
 }
