@@ -1353,7 +1353,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1490,7 +1490,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2071,7 +2071,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2562,7 +2562,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2844,7 +2844,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbef8e8bc27c0c48aa89895c7e5ae07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemProjectile
-  _projectileSpeed: 5
+  _projectileSpeed: 15
+  _maxDistance: 8
 --- !u!61 &1762143355
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2979,5 +2980,5 @@ SceneRoots:
   - {fileID: 167513733}
   - {fileID: 136748647}
   - {fileID: 1762143352}
-  - {fileID: 964516903}
   - {fileID: 44706421}
+  - {fileID: 964516903}
