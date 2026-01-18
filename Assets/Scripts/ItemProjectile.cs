@@ -1,8 +1,8 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class ItemProjectile : MonoBehaviour
-{
+public class ItemProjectile : MonoBehaviour {
     [Header("Pojectile Data")]
     [SerializeField] private float _projectileSpeed;
     [SerializeField] float _maxDistance;
@@ -13,8 +13,8 @@ public class ItemProjectile : MonoBehaviour
     private float _targetDistance;
     private bool grounded = true;
 
-    void FixedUpdate()
-    {
+    public GameObject enemy;
+    void FixedUpdate() {
         gameObject.GetComponent<Rigidbody2D>().MovePosition(transform.position + (_targetPosition - transform.position).normalized * _projectileSpeed * Time.fixedDeltaTime);
         _distanceTravelled += ((_targetPosition - transform.position).normalized * _projectileSpeed * Time.fixedDeltaTime).magnitude;
 
@@ -25,8 +25,7 @@ public class ItemProjectile : MonoBehaviour
         }
     }
 
-    public void InstantiateProjectile(Vector3 target)
-    {
+    public void InstantiateProjectile(Vector3 target) {
         grounded = false;
         _projectileSpeed = 20;
         _distanceTravelled = 0f;
@@ -45,22 +44,24 @@ public class ItemProjectile : MonoBehaviour
     [SerializeField] GameObject triangle; // TODO: REMOVE
     private void Ricochet() {
         soundWave();
-        //_projectileSpeed = 10;
-        //_distanceTravelled += 3;
+        Vector2 currentPos = transform.position;
+        Vector2 targetPos = _targetPosition; // Assuming _targetPosition is Vector2 or castable
+        Vector2 currentDirection = (targetPos - currentPos).normalized;
 
-        // HORIZONTAL
-        square.transform.position = this.gameObject.transform.position; // TODO: REMOVE
-        circle.transform.position = _targetPosition; // TODO: REMOVE
-        float tempf = 0f;
-        if (_originPosition.x >= _targetPosition.x) {
-            tempf = _originPosition.x + _targetPosition.x / 2;
-        } else {
-            tempf = _originPosition.x - _targetPosition.x / 2;
+        // Note: Raycast in 2D returns the hit directly, rather than using an 'out' parameter
+        RaycastHit2D hit = Physics2D.Raycast(currentPos, currentDirection, 100f);
+
+        if (hit.collider != null) {
+            // 3. Reflect works exactly the same way
+            Vector2 reflectDir = Vector2.Reflect(currentDirection, hit.normal);
+
+            // 4. Set new target
+            _targetPosition = hit.point + (reflectDir * 5.0f);
+
+            // Debug visualization
+            Debug.DrawLine(currentPos, hit.point, Color.red, 2f);
+            Debug.DrawRay(hit.point, reflectDir * 5f, Color.green, 2f);
         }
-        Vector3 temp = new Vector3(tempf, _originPosition.y, _targetPosition.z); // HORIZONTAL WALL ONLY
-        temp = new Vector3(tempf, _originPosition.y, _targetPosition.z); // HORIZONTAL WALL ONLY
-        triangle.transform.position = temp; // TODO: REMOVE
-        _targetPosition = temp;
     }
 
     [SerializeField] float soundRadius;
@@ -77,11 +78,17 @@ public class ItemProjectile : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collider)
     {
         if (!grounded) {
-            if (collider.gameObject.CompareTag("NPC")) {
-                collider.gameObject.GetComponentInChildren<Enemy>().KillEnemy();
-                Destroy(this.gameObject);
-            } else if (collider.gameObject.layer == 6) { // Wall layer
+            if (collider.gameObject.layer == 6) { // Wall layer
                 Ricochet();
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (!grounded) {
+            if (collision.gameObject.CompareTag("NPC")) {
+                collision.gameObject.GetComponentInChildren<Enemy>().KillEnemy();
+                Destroy(this.gameObject);
             }
         }
     }
