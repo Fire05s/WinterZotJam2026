@@ -12,20 +12,15 @@ public class AlertNPC : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("NPC")) return;
-
-        if (other.TryGetComponent(out Enemy enemy))
-        {
-            enemy.AlertEnemy(transform.position, _owner.IsFleeing());
-        }
+        Enemy enemy = other.GetComponentInChildren<Enemy>();
+        enemy.AlertEnemy(transform.position, _owner.IsFleeing());
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
         if (!other.CompareTag("NPC")) return;
 
-        if (other.TryGetComponent(out Enemy enemy))
-        {
-            enemy.AlertEnemy(transform.position, _owner.IsFleeing());
-        }
+        Enemy enemy = other.GetComponentInChildren<Enemy>();
+        enemy.AlertEnemy(transform.position, _owner.IsFleeing());
     }
 }

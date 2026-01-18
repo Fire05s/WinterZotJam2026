@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions.Must;
 using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
@@ -43,6 +44,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private LayerMask _obstacleLayer;
 
+    [Header("Animator")]
+    [SerializeField] private Animator _animator;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+
     private Transform _player;
 
     private int _patrolIndex;
@@ -63,6 +68,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         UpdateFOV();
+        UpdateAnimation();
         if (CanSeePlayer())
         {
             currentState = EnemyState.Flee;
@@ -94,6 +100,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+
             _agent.SetDestination(transform.position);
             _waitCounter -= Time.deltaTime;
         }
@@ -196,6 +203,19 @@ public class Enemy : MonoBehaviour
             Quaternion.Euler(0, 0, angle),
             Time.deltaTime * _rotationSpeed
         );
+    }
+
+    private void UpdateAnimation()
+    {
+        if (_agent.velocity.magnitude > 0.1f)
+        {
+            _spriteRenderer.flipX = _agent.velocity.x > 0;
+            _animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            _animator.SetBool("isWalking", false);
+        }
     }
 
     // Draws FOV Gizmos
