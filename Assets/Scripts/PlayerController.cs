@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _attackRange;
     [SerializeField] private AnimationClip _attackClip;
 
+    [Header("Slash")]
+    [SerializeField] private Transform slashTransform;
+    [SerializeField] private GameObject slashObject;
+    [SerializeField] private float spriteAngleOffset = -90f;
+
     // Data related to Player Logic
     private InputSystem_Actions _inputSystem;
     private GameObject _currentlyHeldItem;
@@ -185,14 +190,16 @@ public class PlayerController : MonoBehaviour
         _isAttacking = true;
         Vector3 mousePosition = GetCurrentMouseWorldPosition();
         Vector3 direction = (mousePosition - transform.position).normalized;
-        Debug.Log(direction);
         //Debug.Log(transform.position + mousePosition.normalized * _attackRange);
+
+        UpdateSlash(direction);
+        slashObject.SetActive(true);
 
         AudioManager.Instance.PlayAudio(AudioType.PlayerAttack);
         _animator.SetTrigger("isAttacking");
         _spriteRenderer.flipX = direction.x < 0f;
 
-        foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position + mousePosition.normalized * _attackRange, _attackRadius))
+        foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position + direction * _attackRange, _attackRadius))
         {
             if (collider.CompareTag("NPC"))
             {
@@ -207,9 +214,20 @@ public class PlayerController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(_attackClip.length);
+        slashObject.SetActive(false);
         _isAttacking = false;
 
         yield return new WaitForSeconds(_attackCooldown);
         _canAttack = true;
+    }
+
+    private void UpdateSlash(Vector3 direction)
+    {
+        // Position in front of player (local space)
+        slashTransform.localPosition = direction * _attackRange;
+
+        // Rotation to face direction
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        slashTransform.localRotation = Quaternion.Euler(0f, 0f, angle + spriteAngleOffset);
     }
 }
