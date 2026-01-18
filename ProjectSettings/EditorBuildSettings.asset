@@ -47,6 +47,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/End Scene/VictoryScene.unity
     guid: cf64f298548fb95458c7ff111a1c73fa
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tutorial.unity
+    guid: 47a44620c3d06ea49be311447b751868
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
