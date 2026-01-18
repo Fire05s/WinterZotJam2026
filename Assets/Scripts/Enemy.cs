@@ -36,6 +36,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform[] _patrolPoints;
     [SerializeField] private Transform _exitPoint;
 
+    [Header("Flee")]
+    [SerializeField] private GameObject _alertCollider;
+
     [Header("Layers")]
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private LayerMask _obstacleLayer;
@@ -51,6 +54,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         _exitPoint = GameObject.FindGameObjectWithTag("Exit Point").transform;
+        _alertCollider.SetActive(false);
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
         _waitCounter = _waitTime;
@@ -97,6 +101,8 @@ public class Enemy : MonoBehaviour
 
     private void Patrol()
     {
+        if (_patrolPoints.Length == 0) return;
+
         Transform target = _patrolPoints[_patrolIndex];
         MoveTowards(target.position, _patrolSpeed);
 
@@ -111,7 +117,7 @@ public class Enemy : MonoBehaviour
     private void Alert()
     {
         MoveTowards(_lastAlertedPosition, _chaseSpeed);
-
+        
         // Location reached
         if (Vector2.Distance(transform.position, _lastAlertedPosition) < 0.1f)
         {
@@ -124,6 +130,7 @@ public class Enemy : MonoBehaviour
         MoveTowards(_exitPoint.position, _fleeSpeed);
         if (_isFleeing) return;
         _isFleeing = true;
+        _alertCollider.SetActive(true);
         GameManager.Instance.OpenExit();
     }
 
@@ -136,10 +143,16 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void AlertEnemy(Vector2 location)
+    public void AlertEnemy(Vector2 location, bool isFleeing = false)
     {
         _lastAlertedPosition = location;
-        currentState = EnemyState.Alert;
+        if (isFleeing) currentState = EnemyState.Flee;
+        else currentState = EnemyState.Alert;
+    }
+    
+    public bool IsFleeing()
+    {
+        return _isFleeing;
     }
 
     private void SetIdle(float idleTime)
