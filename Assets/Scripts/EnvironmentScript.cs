@@ -90,7 +90,9 @@ public class EnvironmentScript : MonoBehaviour
         soundWave();
     }
 
+    [SerializeField] AudioType sound;
     private void soundWave() { // Eminate out from radius
+        AudioManager.Instance.PlayAudio(sound);
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(soundOrigin, soundRadius);
         foreach (var hitCollider in hitColliders) {
             if (hitCollider.gameObject.CompareTag("NPC") == false) {
