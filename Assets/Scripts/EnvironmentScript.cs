@@ -85,7 +85,7 @@ public class EnvironmentScript : MonoBehaviour
             if (hitCollider.gameObject == this.gameObject || hitCollider.gameObject.CompareTag("NPC") == false) {
                 continue;
             }
-            hitCollider.gameObject.GetComponentInChildren<BlinkController>().StartBlink(0.3f, 0.5f, 1f);
+            hitCollider.gameObject.GetComponentInChildren<BlinkController>().StartBlink(0.3f, 1.4f, 0.3f);
         }
         soundWave();
     }
