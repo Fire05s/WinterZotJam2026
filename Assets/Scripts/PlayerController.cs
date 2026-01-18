@@ -184,6 +184,7 @@ public class PlayerController : MonoBehaviour
         ItemProjectile projectile = _currentlyHeldItem.GetComponent<ItemProjectile>();
         projectile.InstantiateProjectile(GetCurrentMouseWorldPosition());
         projectile.enabled = true;
+        AudioManager.Instance.PlayAudio(AudioType.PlayerThrow);
 
         _currentlyHeldItem = null;
         yield return new WaitForSeconds(_attackCooldown);
