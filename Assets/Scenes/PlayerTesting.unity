@@ -257,10 +257,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _camera: {fileID: 167513732}
-  _rigidbody: {fileID: 136748649}
   _speedNormal: 3
   _speedMultiplier: 2
-  _smoothTime: 0
   _interactLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -869,6 +867,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6147182375635525890, guid: 3c4d2bc4171fb5449b9a3ca812b3ffc8, type: 3}
   m_PrefabInstance: {fileID: 1550203046}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1574593866
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 322868739531843993, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450093382484418966, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.96008
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450093382484418966, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.37451
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450093382484418966, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450093382484418966, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450093382484418966, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450093382484418966, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450093382484418966, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450093382484418966, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450093382484418966, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1450093382484418966, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2d80731cd5d4dbd48b96064427e16357, type: 3}
 --- !u!1001 &1715865491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -951,6 +1006,7 @@ GameObject:
   - component: {fileID: 1762143351}
   - component: {fileID: 1762143354}
   - component: {fileID: 1762143355}
+  - component: {fileID: 1762143356}
   m_Layer: 3
   m_Name: Item
   m_TagString: Item
@@ -1075,7 +1131,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1091,6 +1147,33 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &1762143356
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762143350}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1100,3 +1183,4 @@ SceneRoots:
   - {fileID: 1762143352}
   - {fileID: 44706421}
   - {fileID: 964516903}
+  - {fileID: 1574593866}
