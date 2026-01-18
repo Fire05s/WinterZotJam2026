@@ -19,6 +19,7 @@ public class ShadowController : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1.0f;
         _currentDarkness = _initialDarkness;
         SetDarkness(_minDarkness);
     }
