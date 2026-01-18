@@ -251,6 +251,7 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 7176772467382381197}
   _deathClip: {fileID: 7400000, guid: e9ef02f7fa816194894ecd674ba0d26b, type: 2}
   _bloodPrefab: {fileID: 9155735836925829036, guid: 17971afeb263fdd43b94788cf5caf27d, type: 3}
+  soundRadius: 5
 --- !u!114 &4276057453144166875
 MonoBehaviour:
   m_ObjectHideFlags: 0
