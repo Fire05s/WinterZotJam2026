@@ -25,12 +25,13 @@ public class DoorController : MonoBehaviour
     {
         _isOpening = true;
         _animator.SetTrigger("Open");
+        AudioManager.Instance?.PlayAudio(AudioType.Chain);
         yield return new WaitForSeconds(_doorOpenClip.length);
         _isOpen = true;
         _isOpening = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (!_isOpen) return;
 
