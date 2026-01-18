@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 90efed2282bc3f8498602bd523d04d77
+guid: 156afcf75435e6c46b2e1146d6324179
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3367275110365841083
-    second: scary-candle-Sheet_0
-  - first:
-      213: 6440692055560531071
-    second: scary-candle-Sheet_1
-  - first:
-      213: 6809002421717651612
-    second: scary-candle-Sheet_2
-  - first:
-      213: 4017322226103286366
-    second: scary-candle-Sheet_3
+      213: -8760870780311584183
+    second: more-scary-chains_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: scary-candle-Sheet_0
+      name: more-scary-chains_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 34
-        width: 18
-        height: 29
+        x: 0
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,74 +115,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bb6ce5e4fd6fabe20800000000000000
-      internalID: 3367275110365841083
+      spriteID: 942cd6041722b6680800000000000000
+      internalID: -8760870780311584183
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scary-candle-Sheet_1
+      name: more-scary-chains_1
       rect:
         serializedVersion: 2
-        x: 39
-        y: 34
-        width: 18
-        height: 29
+        x: 32
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f7cad5fdc4fe16950800000000000000
-      internalID: 6440692055560531071
+      spriteID: e67d297707daee247b84b2e75593e43b
+      internalID: -1490308208
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scary-candle-Sheet_2
+      name: more-scary-chains_2
       rect:
         serializedVersion: 2
-        x: 7
-        y: 2
-        width: 18
-        height: 29
+        x: 0
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c90514d70af6e7e50800000000000000
-      internalID: 6809002421717651612
+      spriteID: 51ee11250b333e14da76f187d4b3f164
+      internalID: -1996978483
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scary-candle-Sheet_3
+      name: more-scary-chains_3
       rect:
         serializedVersion: 2
-        x: 39
-        y: 2
-        width: 18
-        height: 29
+        x: 32
+        y: 0
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e5afa2ba74560c730800000000000000
-      internalID: 4017322226103286366
+      spriteID: 73495b37694d2814a9cd05edd114c418
+      internalID: -847397798
       vertices: []
       indices: 
       edges: []
@@ -200,7 +191,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a5c78ba98148f624d9dd4685b429fab2
+    spriteID: d028fddacca93d146819091210345ddf
     internalID: 0
     vertices: []
     indices: 
@@ -208,12 +199,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      scary-candle-Sheet_0: 3367275110365841083
-      scary-candle-Sheet_1: 6440692055560531071
-      scary-candle-Sheet_2: 6809002421717651612
-      scary-candle-Sheet_3: 4017322226103286366
+      more-scary-chains_0: -8760870780311584183
+      more-scary-chains_1: -1490308208
+      more-scary-chains_2: -1996978483
+      more-scary-chains_3: -847397798
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

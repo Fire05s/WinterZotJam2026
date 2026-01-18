@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6241639675208472368}
   - component: {fileID: 6986424618620342334}
   m_Layer: 3
-  m_Name: Chains
+  m_Name: Chains 1
   m_TagString: Struct
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1490308208, guid: 156afcf75435e6c46b2e1146d6324179, type: 3}
+  m_Sprite: {fileID: -847397798, guid: 156afcf75435e6c46b2e1146d6324179, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -297,7 +297,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1490308208, guid: 156afcf75435e6c46b2e1146d6324179, type: 3}
+  m_Sprite: {fileID: -847397798, guid: 156afcf75435e6c46b2e1146d6324179, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
