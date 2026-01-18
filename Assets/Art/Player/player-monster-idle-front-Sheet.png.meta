@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 40579c80e0782e74887bcf9a608d741a
+guid: 7871714ba463d9d4588771fdda320cbc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5469459722848253220
-    second: player-monster-still-front_0
+      213: -1785915244822121467
+    second: player-monster-idle-front-Sheet_0
+  - first:
+      213: -706609597687173054
+    second: player-monster-idle-front-Sheet_1
+  - first:
+      213: 2007670947130111364
+    second: player-monster-idle-front-Sheet_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +106,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player-monster-still-front_0
+      name: player-monster-idle-front-Sheet_0
       rect:
         serializedVersion: 2
         x: 1
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4253da5b3ac67eb40800000000000000
-      internalID: 5469459722848253220
+      spriteID: 5043c690c872737e0800000000000000
+      internalID: -1785915244822121467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-monster-idle-front-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 4
+        width: 32
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24079fe805e9136f0800000000000000
+      internalID: -706609597687173054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player-monster-idle-front-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 4
+        width: 31
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 485ff8dd61eacdb10800000000000000
+      internalID: 2007670947130111364
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      player-monster-still-front_0: 5469459722848253220
+      player-monster-idle-front-Sheet_0: -1785915244822121467
+      player-monster-idle-front-Sheet_1: -706609597687173054
+      player-monster-idle-front-Sheet_2: 2007670947130111364
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
