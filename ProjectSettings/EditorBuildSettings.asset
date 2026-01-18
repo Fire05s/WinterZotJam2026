@@ -41,6 +41,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level Select.unity
     guid: d4d7f4f767271744ba691393bb33505f
+  - enabled: 1
+    path: Assets/Scenes/End Scene/LossScene.unity
+    guid: ad4457a4f814e4b48b70585c6fa401cd
+  - enabled: 1
+    path: Assets/Scenes/End Scene/VictoryScene.unity
+    guid: cf64f298548fb95458c7ff111a1c73fa
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
