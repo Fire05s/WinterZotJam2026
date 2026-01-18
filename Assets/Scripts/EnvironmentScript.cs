@@ -85,7 +85,7 @@ public class EnvironmentScript : MonoBehaviour
                 continue;
             }
             hitCollider.gameObject.GetComponentInChildren<Enemy>().AlertEnemy(soundOrigin);
-            hitCollider.gameObject.GetComponentInChildren<BlinkController>().StartBlink(0.33f, 0.34f, 0.33f);
+            hitCollider.gameObject.GetComponentInChildren<BlinkController>().StartBlink(0.3f, 0.5f, 0.2f);
         }
     }
 
