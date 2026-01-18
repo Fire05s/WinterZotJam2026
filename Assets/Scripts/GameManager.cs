@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("Scenes")]
-    [SerializeField] private SceneAsset _nextScene;
-    [SerializeField] private SceneAsset _playerLoseScene;
+    [SerializeField] private string _nextScene;
+    [SerializeField] private string _playerLoseScene;
 
     [Header("Exit")]
     [SerializeField] private DoorController _exit;
@@ -48,12 +48,12 @@ public class GameManager : MonoBehaviour
     public void PlayerWin()
     {
         Debug.Log("Player Wins");
-        SceneManager.LoadScene(_nextScene.name);
+        SceneManager.LoadScene(_nextScene);
     }
 
     public void PlayerLose()
     {
         Debug.Log("Player Loses");
-        SceneManager.LoadScene(_playerLoseScene.name);
+        SceneManager.LoadScene(_playerLoseScene);
     }
 }
