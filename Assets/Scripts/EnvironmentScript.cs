@@ -84,7 +84,7 @@ public class EnvironmentScript : MonoBehaviour
             if (hitCollider.gameObject == this.gameObject || hitCollider.gameObject.CompareTag("NPC") == false) {
                 continue;
             }
-            hitCollider.gameObject.GetComponent<Enemy>().AlertEnemy(soundOrigin);
+            hitCollider.gameObject.GetComponentInChildren<Enemy>().AlertEnemy(soundOrigin);
         }
     }
 
