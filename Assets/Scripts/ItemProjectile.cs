@@ -94,6 +94,7 @@ public class ItemProjectile : MonoBehaviour {
 
     private void SoundWave() {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, soundRadius);
+        AudioManager.Instance.PlayAudio(AudioType.ItemImpact);
         foreach (var hitCollider in hitColliders) {
             if (hitCollider.CompareTag("NPC")) // Simplified check
             {
