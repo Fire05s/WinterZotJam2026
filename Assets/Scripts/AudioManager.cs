@@ -58,7 +58,7 @@ public class AudioManager: MonoBehaviour
         return true;
     }
 
-    public void PlayerAudio(AudioType audioType)
+    public void PlayAudio(AudioType audioType)
     {
         if (!CanPlaySound(audioType)) return;
         _audioSource.PlayOneShot(_audioDictionary[audioType].GetCurrentAudio());
