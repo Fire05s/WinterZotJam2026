@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _fleeSpeed = 4f;
     [SerializeField] private float _waitTime = 1f;
     [SerializeField] private float _inspectionTime = 1f;
+    [SerializeField] private float _alertFallback = 2f;
 
     [Header("Vision")]
     [SerializeField] private float _viewDistance = 5f;
@@ -57,6 +58,7 @@ public class Enemy : MonoBehaviour
 
     private int _patrolIndex;
     private float _waitCounter;
+    private float _alertedTime;
     private Vector2 _lastDirection = Vector2.right; // Facing direction
     private Vector3 _lastAlertedPosition; // Where the alerted enemy will move to
     private bool _isFleeing = false;
@@ -130,9 +132,10 @@ public class Enemy : MonoBehaviour
     private void Alert()
     {
         MoveTowards(_lastAlertedPosition, _chaseSpeed);
-        
+        if (_agent.velocity.magnitude < 0.01f) _alertedTime -= Time.deltaTime;
+
         // Location reached (allows enemy to break alert if it's stuck)
-        if (Vector2.Distance(transform.position, _lastAlertedPosition) < 0.1f || _agent.velocity.magnitude < 0.01f)
+        if (Vector2.Distance(transform.position, _lastAlertedPosition) < 0.1f || _alertedTime <= 0f)
         {
             SetIdle(_inspectionTime);
         }
@@ -161,6 +164,7 @@ public class Enemy : MonoBehaviour
     public void AlertEnemy(Vector2 location, bool isFleeing = false)
     {
         _lastAlertedPosition = location;
+        _alertedTime = _alertFallback;
         if (isFleeing) currentState = EnemyState.Flee;
         else currentState = EnemyState.Alert;
     }
