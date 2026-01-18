@@ -45,8 +45,6 @@ public class EnvironmentScript : MonoBehaviour
 
     private float offsetVal = 0f; // Offset is to prevent side hits, increase further to reduce possible side hits
     public void hit(Vector2 Position) { // Player's position
-        Debug.Log(Position);
-        Debug.Log((Vector2) gameObject.transform.position);
         if (multiHit) {
             if (!broken) { // First multi-hit
                 collapse();
@@ -86,7 +84,7 @@ public class EnvironmentScript : MonoBehaviour
             if (hitCollider.gameObject == this.gameObject || hitCollider.gameObject.CompareTag("NPC") == false) {
                 continue;
             }
-            hitCollider.gameObject.GetComponent<Enemy>().AlertEnemy(soundOrigin);
+            hitCollider.gameObject.GetComponentInChildren<Enemy>().AlertEnemy(soundOrigin);
         }
     }
 
