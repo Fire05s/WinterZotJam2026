@@ -353,9 +353,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   currentState: 1
   _agent: {fileID: 3484401120446193485}
-  _patrolSpeed: 2
-  _chaseSpeed: 2
-  _fleeSpeed: 2
+  _patrolSpeed: 3
+  _chaseSpeed: 4
+  _fleeSpeed: 6
   _waitTime: 1
   _inspectionTime: 1
   _alertFallback: 2

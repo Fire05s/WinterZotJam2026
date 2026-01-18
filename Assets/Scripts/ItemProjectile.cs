@@ -1,94 +1,123 @@
-using System;
 using UnityEngine;
 
-public class ItemProjectile : MonoBehaviour
-{
-    [Header("Pojectile Data")]
-    [SerializeField] private float _projectileSpeed;
+public class ItemProjectile : MonoBehaviour {
+    [Header("Projectile Data")]
+    [SerializeField] private float _projectileSpeed = 20f;
     [SerializeField] float _maxDistance;
+    [SerializeField] float soundRadius;
 
     private Vector3 _targetPosition;
-    private Vector3 _originPosition;
     private float _distanceTravelled;
     private float _targetDistance;
     private bool grounded = true;
 
-    void FixedUpdate()
-    {
-        gameObject.GetComponent<Rigidbody2D>().MovePosition(transform.position + (_targetPosition - transform.position).normalized * _projectileSpeed * Time.fixedDeltaTime);
-        _distanceTravelled += ((_targetPosition - transform.position).normalized * _projectileSpeed * Time.fixedDeltaTime).magnitude;
+    // We keep track of the direction for the reflection math
+    private Vector2 _moveDirection;
 
-        if (_distanceTravelled >= _targetDistance) {
-            grounded = true;
-            soundWave();
-            this.enabled = false;
+    public GameObject enemy; // If this is a specific target reference
+
+    void FixedUpdate() {
+        // 1. Stop if we are grounded/done
+        if (grounded) return;
+
+        // Enemy Check (Preserved from your code)
+        if (enemy != null) {
+            enemy.GetComponentInChildren<Enemy>().KillEnemy();
+            Destroy(this.gameObject);
+            return;
+        }
+
+        // 2. Move Logic
+        // Calculate step size for this frame
+        float step = _projectileSpeed * Time.fixedDeltaTime;
+
+        // Move the Rigidbody
+        Vector2 currentPos = transform.position;
+        Vector2 newPos = Vector2.MoveTowards(currentPos, _targetPosition, step);
+        GetComponent<Rigidbody2D>().MovePosition(newPos);
+
+        // 3. Track Distance
+        // We calculate distance based on actual movement this frame
+        _distanceTravelled += Vector2.Distance(currentPos, newPos);
+
+        // 4. Check if we reached the target
+        if (_distanceTravelled >= _targetDistance || Vector2.Distance(transform.position, _targetPosition) < 0.05f) {
+            StopProjectile();
         }
     }
 
-    public void InstantiateProjectile(Vector3 target)
-    {
+    public void InstantiateProjectile(Vector3 target) {
         grounded = false;
-        _projectileSpeed = 20;
         _distanceTravelled = 0f;
-        _targetPosition = target;
-        _originPosition = this.transform.position;
-        Vector3 temp = _targetPosition - transform.position;
-        _targetDistance = temp.magnitude;
-        if (temp.magnitude > _maxDistance) {
-            _targetPosition = transform.position + temp.normalized * _maxDistance;
-            _targetDistance = _maxDistance;
-        }
+        this.enabled = true; // Ensure FixedUpdate runs
+
+        // Setup Distance and Direction
+        Vector3 directionVector = target - transform.position;
+        _targetDistance = Mathf.Min(directionVector.magnitude, _maxDistance);
+
+        // Calculate the clamped target position based on max distance
+        _moveDirection = directionVector.normalized;
+        _targetPosition = transform.position + (Vector3)(_moveDirection * _targetDistance);
     }
 
-    [SerializeField] GameObject square; // TODO: REMOVE
-    [SerializeField] GameObject circle; // TODO: REMOVE
-    [SerializeField] GameObject triangle; // TODO: REMOVE
-    private void Ricochet() {
-        soundWave();
-        //_projectileSpeed = 10;
-        //_distanceTravelled += 3;
+    private void Ricochet(Collision2D collision) {
+        // 1. Get the surface normal from the collision contact point
+        Vector2 surfaceNormal = collision.contacts[0].normal;
 
-        // HORIZONTAL
-        square.transform.position = this.gameObject.transform.position; // TODO: REMOVE
-        circle.transform.position = _targetPosition; // TODO: REMOVE
-        float tempf = 0f;
-        if (_originPosition.x >= _targetPosition.x) {
-            tempf = _originPosition.x + _targetPosition.x / 2;
-        } else {
-            tempf = _originPosition.x - _targetPosition.x / 2;
-        }
-        Vector3 temp = new Vector3(tempf, _originPosition.y, _targetPosition.z); // HORIZONTAL WALL ONLY
-        temp = new Vector3(tempf, _originPosition.y, _targetPosition.z); // HORIZONTAL WALL ONLY
-        triangle.transform.position = temp; // TODO: REMOVE
-        _targetPosition = temp;
+        // 2. Calculate the reflection vector
+        // We use our stored _moveDirection so we reflect the direction we were traveling
+        Vector2 newDirection = Vector2.Reflect(_moveDirection, surfaceNormal).normalized;
+
+        // 3. Calculate remaining distance
+        // How much further were we supposed to go before hitting the wall?
+        float remainingDistance = _targetDistance - _distanceTravelled;
+
+        // 4. Update the state for the new path
+        _moveDirection = newDirection;
+        _targetPosition = (Vector2)transform.position + (newDirection * remainingDistance);
+
+        // Reset distance travelled because we are starting a "new" leg of the journey
+        // but we shorten the target distance to whatever was left.
+        _distanceTravelled = 0f;
+        _targetDistance = remainingDistance;
+
+        // Visual Debugging
+        Debug.DrawRay(collision.contacts[0].point, surfaceNormal, Color.yellow, 1f);
+        Debug.DrawRay(transform.position, newDirection * 2f, Color.green, 1f);
     }
 
-    [SerializeField] float soundRadius;
-    private void soundWave() { // Eminate out from radius
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(this.gameObject.transform.position, soundRadius);
+    private void StopProjectile() {
+        grounded = true;
+        SoundWave();
+        this.enabled = false;
+    }
+
+    private void SoundWave() {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, soundRadius);
         foreach (var hitCollider in hitColliders) {
-            if (hitCollider.gameObject.CompareTag("NPC") == false) {
-                continue;
+            if (hitCollider.CompareTag("NPC")) // Simplified check
+            {
+                var enemyScript = hitCollider.GetComponentInChildren<Enemy>();
+                if (enemyScript != null) enemyScript.AlertEnemy(transform.position);
             }
-            hitCollider.gameObject.GetComponentInChildren<Enemy>().AlertEnemy(this.gameObject.transform.position);
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collider)
-    {
+    private void OnTriggerEnter2D(Collider2D collision) {
         if (!grounded) {
-            if (collider.gameObject.CompareTag("NPC")) {
-                collider.gameObject.GetComponentInChildren<Enemy>().KillEnemy();
+            if (collision.gameObject.CompareTag("NPC")) {
+                collision.gameObject.GetComponentInChildren<Enemy>().KillEnemy();
                 Destroy(this.gameObject);
-            } else if (collider.gameObject.layer == 6) { // Wall layer
-                Ricochet();
             }
         }
     }
 
-    private void OnDrawGizmos() { // TODO: REMOVE ONCE DONE SETTING THEM
-        Gizmos.color = Color.red;
+    public void OnCollisionEnter2D(Collision2D collision) {
+        if (grounded) return;
 
-        Gizmos.DrawWireSphere(this.gameObject.transform.position, soundRadius);
+        // Check for Wall Layer (Layer 6)
+        if (collision.gameObject.layer == 6) {
+            Ricochet(collision);
+        }
     }
 }
