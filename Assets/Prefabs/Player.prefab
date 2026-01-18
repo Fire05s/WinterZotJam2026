@@ -116,9 +116,9 @@ MonoBehaviour:
     m_Bits: 8
   _interactionCooldown: 1
   _interactRadius: 2
-  _attackCooldown: 2
-  _attackRadius: 3
-  _attackRange: 2
+  _attackCooldown: 1
+  _attackRadius: 1
+  _attackRange: 1
 --- !u!50 &6216060925085716215
 Rigidbody2D:
   serializedVersion: 5
