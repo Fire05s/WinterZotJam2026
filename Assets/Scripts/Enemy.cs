@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private IndicatorController _indicatorController;
 
     [Header("Death")]
     [SerializeField] private AnimationClip _deathClip;
@@ -148,6 +149,7 @@ public class Enemy : MonoBehaviour
         MoveTowards(_exitPoint.position, _fleeSpeed);
         if (_isFleeing) return;
         _isFleeing = true;
+        _indicatorController.TriggerFlee();
         _alertCollider.SetActive(true);
         GameManager.Instance.OpenExit();
     }
@@ -157,7 +159,7 @@ public class Enemy : MonoBehaviour
     private void soundWave() { // Eminate out from radius
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, soundRadius);
         foreach (var hitCollider in hitColliders) {
-            if (hitCollider.gameObject.CompareTag("NPC") == false) {
+            if (hitCollider.gameObject.CompareTag("NPC") == false || hitCollider.gameObject == transform.parent.gameObject) {
                 continue;
             }
             hitCollider.gameObject.GetComponentInChildren<Enemy>().AlertEnemy(transform.position);
@@ -179,7 +181,11 @@ public class Enemy : MonoBehaviour
         _lastAlertedPosition = location;
         _alertedTime = _alertFallback;
         if (isFleeing) currentState = EnemyState.Flee;
-        else currentState = EnemyState.Alert;
+        else
+        {
+            _indicatorController.TriggerInspection();
+            currentState = EnemyState.Alert;
+        }
     }
     
     public bool IsFleeing()

@@ -7,11 +7,11 @@ public class IndicatorController : MonoBehaviour
 
     public void TriggerInspection()
     {
-        
+        _anim.SetTrigger("question");
     }
 
     public void TriggerFlee()
     {
-
+        _anim.SetTrigger("exclaimation");
     }
 }
