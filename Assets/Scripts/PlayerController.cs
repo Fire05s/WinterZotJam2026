@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera _camera;
     [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private Rigidbody2D _rb;
 
     [Header("Movement")]
     [SerializeField] private float _speedNormal;
@@ -69,8 +70,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _moveDirection = _inputSystem.Player.Move.ReadValue<Vector3>().normalized;
-        transform.position = transform.position + _moveDirection * _speed * Time.deltaTime;
         UpdateAnimations();
+    }
+
+    private void FixedUpdate()
+    {
+        _rb.MovePosition(
+            _rb.position + (Vector2)_moveDirection * _speed * Time.fixedDeltaTime
+        );
     }
 
     // Helper Functions
@@ -205,7 +212,6 @@ public class PlayerController : MonoBehaviour
             {
                 // Deal damage to NPC
                 collider.gameObject.GetComponentInChildren<Enemy>().KillEnemy();
-                AudioManager.Instance.PlayAudio(AudioType.NPCDeath);
             }
             else if (collider.CompareTag("Struct"))
             {
