@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
                 closestObject = colliderArray[index];
             }
         }
-
+        
         if (closestObject.CompareTag("Struct"))
         {
             ToppleInteraction(closestObject);
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
 
     private void ToppleInteraction(Collider2D collider)
     {
-        // Call on script to topple the structure
+        collider.transform.parent.GetComponent<EnvironmentScript>().hit((Vector2) this.gameObject.transform.position);
     }
 
     private void PickupInteraction(Collider2D collider)

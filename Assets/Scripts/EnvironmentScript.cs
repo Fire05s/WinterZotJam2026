@@ -22,15 +22,13 @@ public class EnvironmentScript : MonoBehaviour
 
     private CircleCollider2D soundCircle;
 
-    public Transform PositionTest; // FOR TESTING ONLY, TODO: REMOVE
-
     private void Start() {
         // Sets the direction of the object
         if (!directionalPointer) {
             direction = directionEnum.None;
         } else {
             directionalPointer.SetActive(false);
-            VecDir = new Vector2(gameObject.transform.up.x, gameObject.transform.up.y);
+            VecDir = (Vector2) gameObject.transform.position;
             if (VecDir.y >= 0.5f) {
                 direction = directionEnum.Up;
             } else if (VecDir.y < -0.5f) {
@@ -43,12 +41,12 @@ public class EnvironmentScript : MonoBehaviour
         }
 
         soundOrigin = new Vector2(destroyedObject.transform.position.x, destroyedObject.transform.position.y);
-
-        hit(new Vector2(PositionTest.position.x, PositionTest.position.y)); // FOR TESTING ONLY, TODO: REMOVE
     }
 
     private float offsetVal = 0f; // Offset is to prevent side hits, increase further to reduce possible side hits
     public void hit(Vector2 Position) { // Player's position
+        Debug.Log(Position);
+        Debug.Log(gameObject.transform.position);
         if (multiHit) {
             if (!broken) { // First multi-hit
                 collapse();
