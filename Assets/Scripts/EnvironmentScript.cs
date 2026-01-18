@@ -45,6 +45,8 @@ public class EnvironmentScript : MonoBehaviour
 
     private float offsetVal = 0f; // Offset is to prevent side hits, increase further to reduce possible side hits
     public void hit(Vector2 Position) { // Player's position
+        Debug.Log(Position);
+        Debug.Log(gameObject.transform.position);
         if (multiHit) {
             if (!broken) { // First multi-hit
                 collapse();

@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
                 closestObject = colliderArray[index];
             }
         }
-
+        
         if (closestObject.CompareTag("Struct"))
         {
             ToppleInteraction(closestObject);
