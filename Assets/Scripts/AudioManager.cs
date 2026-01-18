@@ -54,6 +54,20 @@ public class AudioManager: MonoBehaviour
                     return false;
                 }
                 return true;
+                
+            // case AudioType.NPCAlert:
+            //     if (_audioTimerDictionary.ContainsKey(audioType))
+            //     {
+            //         float lastTimePlayed = _audioTimerDictionary[audioType];
+            //         float playerMoveTimerMax = 0.5f;
+            //         if (lastTimePlayed + playerMoveTimerMax < Time.time)
+            //         {
+            //             _audioTimerDictionary[audioType] = Time.time;
+            //             return true;
+            //         }
+            //         return false;
+            //     }
+            //     return true;
         }
         return true;
     }

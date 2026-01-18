@@ -25,8 +25,8 @@ public class DoorController : MonoBehaviour
     {
         _isOpening = true;
         _animator.SetTrigger("Open");
-        AudioManager.Instance?.PlayAudio(AudioType.Chain);
         yield return new WaitForSeconds(_doorOpenClip.length);
+        AudioManager.Instance.PlayAudio(AudioType.DoorOpen);
         _isOpen = true;
         _isOpening = false;
     }
