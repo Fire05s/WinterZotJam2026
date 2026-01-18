@@ -28,7 +28,7 @@ public class EnvironmentScript : MonoBehaviour
             direction = directionEnum.None;
         } else {
             directionalPointer.SetActive(false);
-            VecDir = (Vector2) gameObject.transform.position;
+            VecDir = (Vector2) gameObject.transform.up;
             if (VecDir.y >= 0.5f) {
                 direction = directionEnum.Up;
             } else if (VecDir.y < -0.5f) {
@@ -43,10 +43,8 @@ public class EnvironmentScript : MonoBehaviour
         soundOrigin = new Vector2(destroyedObject.transform.position.x, destroyedObject.transform.position.y);
     }
 
-    private float offsetVal = 0f; // Offset is to prevent side hits, increase further to reduce possible side hits
+    private float offsetVal = -0.5f; // Offset is to prevent side hits, increase further to reduce possible side hits
     public void hit(Vector2 Position) { // Player's position
-        Debug.Log(Position);
-        Debug.Log((Vector2) gameObject.transform.position);
         if (multiHit) {
             if (!broken) { // First multi-hit
                 collapse();
@@ -57,13 +55,13 @@ public class EnvironmentScript : MonoBehaviour
             if (!broken) {
                 if (direction == directionEnum.None) {
                     collapse();
-                } else if (direction == directionEnum.Up && Position.y > gameObject.transform.position.y - offsetVal) { // Player positioned below
+                } else if (direction == directionEnum.Up && Position.y < gameObject.transform.position.y - offsetVal) { // Player positioned below
                     collapse();
-                } else if (direction == directionEnum.Down && Position.y < gameObject.transform.position.y + offsetVal) { // Player positioned above
+                } else if (direction == directionEnum.Down && Position.y > gameObject.transform.position.y + offsetVal) { // Player positioned above
                     collapse();
-                } else if (direction == directionEnum.Left && Position.x < gameObject.transform.position.x + offsetVal) { // Player positioned right
+                } else if (direction == directionEnum.Left && Position.x > gameObject.transform.position.x + offsetVal) { // Player positioned right
                     collapse();
-                } else if (direction == directionEnum.Right && Position.x > gameObject.transform.position.x - offsetVal) { // Player positioned left
+                } else if (direction == directionEnum.Right && Position.x < gameObject.transform.position.x - offsetVal) { // Player positioned left
                     collapse();
                 }
             }
@@ -77,6 +75,13 @@ public class EnvironmentScript : MonoBehaviour
         normalObject.SetActive(false);
         destroyedObject.SetActive(true);
         //Debug.Log("Play Animation"); // TODO: Implement animation
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(soundOrigin, soundRadius);
+        foreach (var hitCollider in hitColliders) {
+            if (hitCollider.gameObject == this.gameObject || hitCollider.gameObject.CompareTag("NPC") == false) {
+                continue;
+            }
+            hitCollider.gameObject.GetComponentInChildren<BlinkController>().StartBlink(0.3f, 0.5f, 1f);
+        }
         soundWave();
     }
 
@@ -86,7 +91,13 @@ public class EnvironmentScript : MonoBehaviour
             if (hitCollider.gameObject == this.gameObject || hitCollider.gameObject.CompareTag("NPC") == false) {
                 continue;
             }
-            hitCollider.gameObject.GetComponent<Enemy>().AlertEnemy(soundOrigin);
+            hitCollider.gameObject.GetComponentInChildren<Enemy>().AlertEnemy(soundOrigin);
         }
+    }
+
+    private void OnDrawGizmos() { // TODO: REMOVE ONCE DONE SETTING THEM
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(destroyedObject.transform.position, soundRadius);
     }
 }

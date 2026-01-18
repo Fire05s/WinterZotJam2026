@@ -5,22 +5,16 @@ public class ItemProjectile : MonoBehaviour
 {
     [Header("Pojectile Data")]
     [SerializeField] private float _projectileSpeed;
+    [SerializeField] float _maxDistance;
 
     private Vector3 _targetPosition;
-    private float _distanceTillLanded = 0.1f;
+    private float _distanceTillLanded = 0.3f;
 
-    void Update()
+    void FixedUpdate()
     {
-        MoveToPosition();
-    }
+        gameObject.GetComponent<Rigidbody2D>().MovePosition(transform.position + (_targetPosition - transform.position).normalized * _projectileSpeed * Time.fixedDeltaTime);
 
-    void MoveToPosition()
-    {
-        transform.position += (_targetPosition - transform.position).normalized * _projectileSpeed * Time.deltaTime;
-        
-
-        if (Vector2.Distance(_targetPosition, transform.position) < _distanceTillLanded)
-        {
+        if (Vector2.Distance(_targetPosition, transform.position) < _distanceTillLanded) {
             this.enabled = false;
         }
     }
@@ -28,10 +22,20 @@ public class ItemProjectile : MonoBehaviour
     public void InstantiateProjectile(Vector3 target)
     {
         _targetPosition = target;
+        Vector3 temp = _targetPosition - transform.position;
+        if (temp.magnitude > _maxDistance) {
+            _targetPosition = transform.position + temp.normalized * _maxDistance;
+        }
     }
 
-    public void OnCollisionEnter2D(Collision2D collider)
+    public void OnTriggerEnter2D(Collision2D collider)
     {
-        
+        // TODO: If it is a struct and has pass through then don't bounce back
+        Debug.Log("Collision");
+        if (collider.gameObject.CompareTag("NPC")) {
+            collider.gameObject.GetComponent<Enemy>().KillEnemy();
+            // TODO: Destroy throwable
+            Destroy(this.gameObject);
+        }
     }
 }

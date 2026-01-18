@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions.Must;
 using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
@@ -36,9 +37,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform[] _patrolPoints;
     [SerializeField] private Transform _exitPoint;
 
+    [Header("Flee")]
+    [SerializeField] private GameObject _alertCollider;
+
     [Header("Layers")]
     [SerializeField] private LayerMask _playerLayer;
     [SerializeField] private LayerMask _obstacleLayer;
+
+    [Header("Animator")]
+    [SerializeField] private Animator _animator;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
     private Transform _player;
 
@@ -51,6 +59,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         _exitPoint = GameObject.FindGameObjectWithTag("Exit Point").transform;
+        _alertCollider.SetActive(false);
         _agent.updateRotation = false;
         _agent.updateUpAxis = false;
         _waitCounter = _waitTime;
@@ -59,6 +68,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         UpdateFOV();
+        UpdateAnimation();
         if (CanSeePlayer())
         {
             currentState = EnemyState.Flee;
@@ -90,6 +100,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+
             _agent.SetDestination(transform.position);
             _waitCounter -= Time.deltaTime;
         }
@@ -97,6 +108,8 @@ public class Enemy : MonoBehaviour
 
     private void Patrol()
     {
+        if (_patrolPoints.Length == 0) return;
+
         Transform target = _patrolPoints[_patrolIndex];
         MoveTowards(target.position, _patrolSpeed);
 
@@ -111,7 +124,7 @@ public class Enemy : MonoBehaviour
     private void Alert()
     {
         MoveTowards(_lastAlertedPosition, _chaseSpeed);
-
+        
         // Location reached
         if (Vector2.Distance(transform.position, _lastAlertedPosition) < 0.1f)
         {
@@ -124,6 +137,7 @@ public class Enemy : MonoBehaviour
         MoveTowards(_exitPoint.position, _fleeSpeed);
         if (_isFleeing) return;
         _isFleeing = true;
+        _alertCollider.SetActive(true);
         GameManager.Instance.OpenExit();
     }
 
@@ -133,13 +147,19 @@ public class Enemy : MonoBehaviour
     {
         // maybe add enemy death animations here
         GameManager.Instance.OnEnemyDeath();
-        Destroy(gameObject);
+        Destroy(gameObject.transform.parent.gameObject);
     }
 
-    public void AlertEnemy(Vector2 location)
+    public void AlertEnemy(Vector2 location, bool isFleeing = false)
     {
         _lastAlertedPosition = location;
-        currentState = EnemyState.Alert;
+        if (isFleeing) currentState = EnemyState.Flee;
+        else currentState = EnemyState.Alert;
+    }
+    
+    public bool IsFleeing()
+    {
+        return _isFleeing;
     }
 
     private void SetIdle(float idleTime)
@@ -183,6 +203,19 @@ public class Enemy : MonoBehaviour
             Quaternion.Euler(0, 0, angle),
             Time.deltaTime * _rotationSpeed
         );
+    }
+
+    private void UpdateAnimation()
+    {
+        if (_agent.velocity.magnitude > 0.1f)
+        {
+            _spriteRenderer.flipX = _agent.velocity.x < 0;
+            _animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            _animator.SetBool("isWalking", false);
+        }
     }
 
     // Draws FOV Gizmos
