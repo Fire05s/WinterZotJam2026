@@ -190,7 +190,7 @@ MonoBehaviour:
   destroyedObject: {fileID: 2017970633273459705}
   broken: 0
   multiHit: 0
-  soundRadius: 5
+  soundRadius: 20
 --- !u!50 &9095180557043154946
 Rigidbody2D:
   serializedVersion: 5
