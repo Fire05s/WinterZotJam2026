@@ -28,7 +28,7 @@ public class EnvironmentScript : MonoBehaviour
             direction = directionEnum.None;
         } else {
             directionalPointer.SetActive(false);
-            VecDir = (Vector2) gameObject.transform.position;
+            VecDir = (Vector2) gameObject.transform.up;
             if (VecDir.y >= 0.5f) {
                 direction = directionEnum.Up;
             } else if (VecDir.y < -0.5f) {
@@ -40,10 +40,12 @@ public class EnvironmentScript : MonoBehaviour
             }
         }
 
+        Debug.Log(direction);
+
         soundOrigin = new Vector2(destroyedObject.transform.position.x, destroyedObject.transform.position.y);
     }
 
-    private float offsetVal = 0f; // Offset is to prevent side hits, increase further to reduce possible side hits
+    private float offsetVal = -0.5f; // Offset is to prevent side hits, increase further to reduce possible side hits
     public void hit(Vector2 Position) { // Player's position
         if (multiHit) {
             if (!broken) { // First multi-hit
@@ -55,13 +57,13 @@ public class EnvironmentScript : MonoBehaviour
             if (!broken) {
                 if (direction == directionEnum.None) {
                     collapse();
-                } else if (direction == directionEnum.Up && Position.y > gameObject.transform.position.y - offsetVal) { // Player positioned below
+                } else if (direction == directionEnum.Up && Position.y < gameObject.transform.position.y - offsetVal) { // Player positioned below
                     collapse();
-                } else if (direction == directionEnum.Down && Position.y < gameObject.transform.position.y + offsetVal) { // Player positioned above
+                } else if (direction == directionEnum.Down && Position.y > gameObject.transform.position.y + offsetVal) { // Player positioned above
                     collapse();
-                } else if (direction == directionEnum.Left && Position.x < gameObject.transform.position.x + offsetVal) { // Player positioned right
+                } else if (direction == directionEnum.Left && Position.x > gameObject.transform.position.x + offsetVal) { // Player positioned right
                     collapse();
-                } else if (direction == directionEnum.Right && Position.x > gameObject.transform.position.x - offsetVal) { // Player positioned left
+                } else if (direction == directionEnum.Right && Position.x < gameObject.transform.position.x - offsetVal) { // Player positioned left
                     collapse();
                 }
             }
