@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("Required Components")]
     [SerializeField] private Camera _camera;
     [SerializeField] private Animator _animator;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
     [Header("Movement")]
     [SerializeField] private float _speedNormal;
@@ -45,6 +46,14 @@ public class PlayerController : MonoBehaviour
         _canAttack = true;
     }
 
+    private void OnDisable()
+    {
+        _inputSystem.Player.Interact.performed -= OnInteract;
+        _inputSystem.Player.Attack.performed -= OnAttack;
+        _inputSystem.Player.Disable();
+        StopAllCoroutines();
+    }
+
     void Start()
     {
         _speed = _speedNormal;
@@ -53,17 +62,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _moveDirection = _inputSystem.Player.Move.ReadValue<Vector3>().normalized;
-
+        Debug.Log(_moveDirection);
         transform.position = transform.position + _moveDirection * _speed * Time.deltaTime;
-
-        if (_moveDirection == Vector3.zero)
-        {
-            _animator.SetBool("isIdle", true);
-        }
-        else
-        {
-            _animator.SetBool("isWalking", true);
-        }
+        UpdateAnimations();
     }
 
     // Helper Functions
@@ -73,6 +74,20 @@ public class PlayerController : MonoBehaviour
         Vector3 mouseDirection = _camera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         mouseDirection.z = 0;
         return mouseDirection;
+    }
+
+    private void UpdateAnimations()
+    {
+        if (_moveDirection.magnitude < 0.1f || Mathf.Abs(_moveDirection.y) == 1f)
+        {
+            // faces front
+            _animator.SetBool("isWalking", false);
+        }
+        else
+        {
+            _animator.SetBool("isWalking", true);
+            _spriteRenderer.flipX = _moveDirection.x > 0f;
+        }
     }
 
     // User Input

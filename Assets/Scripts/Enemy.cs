@@ -132,7 +132,7 @@ public class Enemy : MonoBehaviour
         MoveTowards(_lastAlertedPosition, _chaseSpeed);
         
         // Location reached (allows enemy to break alert if it's stuck)
-        if (Vector2.Distance(transform.position, _lastAlertedPosition) < 0.1f || _agent.velocity.magnitude < 0.1f)
+        if (Vector2.Distance(transform.position, _lastAlertedPosition) < 0.1f || _agent.velocity.magnitude < 0.01f)
         {
             SetIdle(_inspectionTime);
         }
