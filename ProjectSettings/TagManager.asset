@@ -8,6 +8,7 @@ TagManager:
   - NPC
   - Struct
   - Item
+  - NavMesh
   layers:
   - Default
   - TransparentFX
