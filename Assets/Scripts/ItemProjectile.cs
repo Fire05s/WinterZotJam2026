@@ -14,18 +14,9 @@ public class ItemProjectile : MonoBehaviour {
     // We keep track of the direction for the reflection math
     private Vector2 _moveDirection;
 
-    public GameObject enemy; // If this is a specific target reference
-
     void FixedUpdate() {
         // 1. Stop if we are grounded/done
         if (grounded) return;
-
-        // Enemy Check (Preserved from your code)
-        if (enemy != null) {
-            enemy.GetComponentInChildren<Enemy>().KillEnemy();
-            Destroy(this.gameObject);
-            return;
-        }
 
         // 2. Move Logic
         // Calculate step size for this frame
@@ -94,6 +85,7 @@ public class ItemProjectile : MonoBehaviour {
 
     private void SoundWave() {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, soundRadius);
+        AudioManager.Instance.PlayAudio(AudioType.ItemImpact);
         foreach (var hitCollider in hitColliders) {
             if (hitCollider.CompareTag("NPC")) // Simplified check
             {
