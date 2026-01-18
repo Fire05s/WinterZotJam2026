@@ -7,12 +7,10 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Required Components")]
     [SerializeField] private Camera _camera;
-    [SerializeField] private Rigidbody2D _rigidbody;
 
     [Header("Movement")]
     [SerializeField] private float _speedNormal;
     [SerializeField] private float _speedMultiplier;
-    [SerializeField] private float _smoothTime;
 
     [Header("Interact")]
     [SerializeField] private LayerMask _interactLayer;
@@ -29,8 +27,6 @@ public class PlayerController : MonoBehaviour
     private GameObject _currentlyHeldItem;
 
     private Vector3 _moveDirection;
-    private Vector3 _smoothMoveInput;
-    private Vector2 _smoothMoveVelocity;
     private float _speed;
     private bool _canAttack;
 
@@ -57,9 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         _moveDirection = _inputSystem.Player.Move.ReadValue<Vector3>().normalized;
 
-        _smoothMoveInput = Vector2.SmoothDamp(_smoothMoveInput, _moveDirection, ref _smoothMoveVelocity, _smoothTime);
-
-        _rigidbody.linearVelocity = _smoothMoveInput * _speed;
+        transform.position = transform.position + _moveDirection * _speed * Time.deltaTime;
     }
 
     // Helper Functions
@@ -158,11 +152,15 @@ public class PlayerController : MonoBehaviour
         _canAttack = false;
         Vector3 mousePosition = GetCurrentMouseWorldPosition();
         Debug.Log(transform.position + mousePosition.normalized * _attackRange);
+
+        AudioManager.Instance.PlayerAudio(AudioType.PlayerAttack);
+
         foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position + mousePosition.normalized * _attackRange, _attackRadius))
         {
             if (collider.CompareTag("NPC"))
             {
                 // Deal damage to NPC  
+                AudioManager.Instance.PlayerAudio(AudioType.NPCDeath);
             }
             else if (collider.CompareTag("Struct"))
             {

@@ -46,7 +46,7 @@ public class EnvironmentScript : MonoBehaviour
     private float offsetVal = 0f; // Offset is to prevent side hits, increase further to reduce possible side hits
     public void hit(Vector2 Position) { // Player's position
         Debug.Log(Position);
-        Debug.Log(gameObject.transform.position);
+        Debug.Log((Vector2) gameObject.transform.position);
         if (multiHit) {
             if (!broken) { // First multi-hit
                 collapse();
@@ -56,19 +56,14 @@ public class EnvironmentScript : MonoBehaviour
         } else {
             if (!broken) {
                 if (direction == directionEnum.None) {
-                    //Debug.Log("Break!");
                     collapse();
-                } else if (direction == directionEnum.Up && Position.y < gameObject.transform.position.y - offsetVal) { // Player positioned below
-                    //Debug.Log("Hit up!");
+                } else if (direction == directionEnum.Up && Position.y > gameObject.transform.position.y - offsetVal) { // Player positioned below
                     collapse();
-                } else if (direction == directionEnum.Down && Position.y > gameObject.transform.position.y + offsetVal) { // Player positioned above
-                    //Debug.Log("Hit down!");
+                } else if (direction == directionEnum.Down && Position.y < gameObject.transform.position.y + offsetVal) { // Player positioned above
                     collapse();
-                } else if (direction == directionEnum.Left && Position.x > gameObject.transform.position.x + offsetVal) { // Player positioned right
-                    //Debug.Log("Hit left!");
+                } else if (direction == directionEnum.Left && Position.x < gameObject.transform.position.x + offsetVal) { // Player positioned right
                     collapse();
-                } else if (direction == directionEnum.Right && Position.x < gameObject.transform.position.x - offsetVal) { // Player positioned left
-                    //Debug.Log("Hit right!");
+                } else if (direction == directionEnum.Right && Position.x > gameObject.transform.position.x - offsetVal) { // Player positioned left
                     collapse();
                 }
             }
@@ -78,6 +73,7 @@ public class EnvironmentScript : MonoBehaviour
     private void collapse() { // Move player to safety if needed
         broken = true;
         // TODO: Move player to safety if needed
+        // TODO: Kill NPCs within range
         normalObject.SetActive(false);
         destroyedObject.SetActive(true);
         //Debug.Log("Play Animation"); // TODO: Implement animation
@@ -92,5 +88,11 @@ public class EnvironmentScript : MonoBehaviour
             }
             hitCollider.gameObject.GetComponent<Enemy>().AlertEnemy(soundOrigin);
         }
+    }
+
+    private void OnDrawGizmos() { // TODO: REMOVE ONCE DONE SETTING THEM
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(destroyedObject.transform.position, soundRadius);
     }
 }
