@@ -48,12 +48,12 @@ public class GameManager : MonoBehaviour
     public void PlayerWin()
     {
         Debug.Log("Player Wins");
-        //SceneManager.LoadScene(_nextScene.name);
+        SceneManager.LoadScene(_nextScene.name);
     }
 
     public void PlayerLose()
     {
         Debug.Log("Player Loses");
-        //SceneManager.LoadScene(_playerLoseScene.name);
+        SceneManager.LoadScene(_playerLoseScene.name);
     }
 }
