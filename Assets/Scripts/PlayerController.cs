@@ -153,14 +153,14 @@ public class PlayerController : MonoBehaviour
         Vector3 mousePosition = GetCurrentMouseWorldPosition();
         Debug.Log(transform.position + mousePosition.normalized * _attackRange);
 
-        AudioManager.Instance.PlayerAudio(AudioType.PlayerAttack);
+        AudioManager.Instance.PlayAudio(AudioType.PlayerAttack);
 
         foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position + mousePosition.normalized * _attackRange, _attackRadius))
         {
             if (collider.CompareTag("NPC"))
             {
                 // Deal damage to NPC  
-                AudioManager.Instance.PlayerAudio(AudioType.NPCDeath);
+                AudioManager.Instance.PlayAudio(AudioType.NPCDeath);
             }
             else if (collider.CompareTag("Struct"))
             {
