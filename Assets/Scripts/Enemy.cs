@@ -146,7 +146,6 @@ public class Enemy : MonoBehaviour
     public void KillEnemy()
     {
         // maybe add enemy death animations here
-        Debug.Log("Killed");
         GameManager.Instance.OnEnemyDeath();
         Destroy(gameObject.transform.parent.gameObject);
     }

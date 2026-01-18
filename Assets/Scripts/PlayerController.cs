@@ -69,6 +69,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext ctx)
     {
+        if (!this) {
+            return;
+        }
         Collider2D[] colliderArray = Physics2D.OverlapCircleAll(transform.position, _interactRadius, _interactLayer);
 
         if (colliderArray.Count() == 0) return;
