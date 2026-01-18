@@ -246,7 +246,8 @@ MonoBehaviour:
   _obstacleLayer:
     serializedVersion: 2
     m_Bits: 64
-  _animator: {fileID: 0}
+  _animator: {fileID: 4521020131690569944}
+  _spriteRenderer: {fileID: 7176772467382381197}
 --- !u!114 &4276057453144166875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 675dffb34310a6f478caf43bbe586230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BlinkController
-  _blinkReactionTime: 0.3
   _passiveCooldown: 5
   _cooldownVariability: 1
   _passiveBlinkDuration: 0.1

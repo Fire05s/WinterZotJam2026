@@ -209,7 +209,7 @@ public class Enemy : MonoBehaviour
     {
         if (_agent.velocity.magnitude > 0.1f)
         {
-            _spriteRenderer.flipX = _agent.velocity.x > 0;
+            _spriteRenderer.flipX = _agent.velocity.x < 0;
             _animator.SetBool("isWalking", true);
         }
         else
