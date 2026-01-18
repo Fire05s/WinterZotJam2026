@@ -161,6 +161,7 @@ public class PlayerController : MonoBehaviour
             {
                 // Deal damage to NPC  
                 AudioManager.Instance.PlayAudio(AudioType.NPCDeath);
+                collider.gameObject.GetComponent<Enemy>().KillEnemy();
             }
             else if (collider.CompareTag("Struct"))
             {
