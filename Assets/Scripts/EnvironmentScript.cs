@@ -75,6 +75,13 @@ public class EnvironmentScript : MonoBehaviour
         normalObject.SetActive(false);
         destroyedObject.SetActive(true);
         //Debug.Log("Play Animation"); // TODO: Implement animation
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(soundOrigin, soundRadius);
+        foreach (var hitCollider in hitColliders) {
+            if (hitCollider.gameObject == this.gameObject || hitCollider.gameObject.CompareTag("NPC") == false) {
+                continue;
+            }
+            hitCollider.gameObject.GetComponentInChildren<BlinkController>().StartBlink(0.3f, 0.5f, 1f);
+        }
         soundWave();
     }
 
@@ -85,7 +92,6 @@ public class EnvironmentScript : MonoBehaviour
                 continue;
             }
             hitCollider.gameObject.GetComponentInChildren<Enemy>().AlertEnemy(soundOrigin);
-            hitCollider.gameObject.GetComponentInChildren<BlinkController>().StartBlink(0.3f, 0.5f, 0.2f);
         }
     }
 
