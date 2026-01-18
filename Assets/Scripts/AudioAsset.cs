@@ -30,6 +30,9 @@ public enum AudioType
     NPCDeath,
     NPCWalk,
     ToppleBookShelf,
-    WoodBreak
+    WoodBreak,
+    NPCAlert,
+    NPCCurious,
+    DoorOpen
 }
 
