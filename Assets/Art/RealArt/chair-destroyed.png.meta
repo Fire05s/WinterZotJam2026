@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 41db8937a434e67488ebec25c8d2ac02
+guid: 76b389f943bc40743b5da7f3a7aaf070
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6263006816017299157
-    second: moss_0
-  - first:
-      213: 1189573510918601163
-    second: moss_1
+      213: 1937678139079207227
+    second: chair-destroyed_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: moss_0
+      name: chair-destroyed_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 32
-        height: 32
+        y: 4
+        width: 64
+        height: 28
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b294071db745519a0800000000000000
-      internalID: -6263006816017299157
+      spriteID: b392bd0500404ea10800000000000000
+      internalID: 1937678139079207227
       vertices: []
       indices: 
       edges: []
@@ -128,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 14f14f9becd3f3c459327604284a1a68
+    spriteID: b5f10471e69087b4082d025672a08076
     internalID: 0
     vertices: []
     indices: 
@@ -138,8 +135,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      moss_0: -6263006816017299157
-      moss_1: 1189573510918601163
+      chair-destroyed_0: 1937678139079207227
+      chair-destroyed_1: 1118652257
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

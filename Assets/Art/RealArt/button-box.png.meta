@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 41db8937a434e67488ebec25c8d2ac02
+guid: ff153e0fbac76fe46adab513690830be
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6263006816017299157
-    second: moss_0
-  - first:
-      213: 1189573510918601163
-    second: moss_1
+      213: 6828188799102753952
+    second: button-box_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,13 +46,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 3, y: 7, z: 3, w: 3}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -99,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: moss_0
+      name: button-box_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b294071db745519a0800000000000000
-      internalID: -6263006816017299157
+      spriteID: 0ac12d5198992ce50800000000000000
+      internalID: 6828188799102753952
       vertices: []
       indices: 
       edges: []
@@ -128,8 +138,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 14f14f9becd3f3c459327604284a1a68
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -138,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      moss_0: -6263006816017299157
-      moss_1: 1189573510918601163
+      button-box_0: 6828188799102753952
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
