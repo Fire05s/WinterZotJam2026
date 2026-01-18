@@ -89,4 +89,10 @@ public class EnvironmentScript : MonoBehaviour
             hitCollider.gameObject.GetComponent<Enemy>().AlertEnemy(soundOrigin);
         }
     }
+
+    private void OnDrawGizmos() { // TODO: REMOVE ONCE DONE SETTING THEM
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(destroyedObject.transform.position, soundRadius);
+    }
 }
