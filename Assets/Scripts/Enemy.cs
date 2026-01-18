@@ -125,8 +125,8 @@ public class Enemy : MonoBehaviour
     {
         MoveTowards(_lastAlertedPosition, _chaseSpeed);
         
-        // Location reached
-        if (Vector2.Distance(transform.position, _lastAlertedPosition) < 0.1f)
+        // Location reached (allows enemy to break alert if it's stuck)
+        if (Vector2.Distance(transform.position, _lastAlertedPosition) < 0.1f || _agent.velocity.magnitude < 0.1f)
         {
             SetIdle(_inspectionTime);
         }
@@ -172,7 +172,7 @@ public class Enemy : MonoBehaviour
     {
         _agent.speed = speed;
         _agent.SetDestination(target);
-        _lastDirection = _agent.velocity.normalized;
+        if (_agent.velocity.magnitude > 0.1f) _lastDirection = _agent.velocity.normalized;
     }
 
     private bool CanSeePlayer()

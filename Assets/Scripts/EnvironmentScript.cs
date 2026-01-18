@@ -1,3 +1,4 @@
+using NavMeshPlus.Components;
 using UnityEngine;
 
 public class EnvironmentScript : MonoBehaviour
@@ -75,6 +76,10 @@ public class EnvironmentScript : MonoBehaviour
         normalObject.SetActive(false);
         destroyedObject.SetActive(true);
         //Debug.Log("Play Animation"); // TODO: Implement animation
+
+        // rebuild nav mesh
+        NavMeshSurface navMesh = GameObject.FindGameObjectWithTag("NavMesh").GetComponent<NavMeshSurface>();
+        navMesh.BuildNavMesh();
         soundWave();
     }
 
