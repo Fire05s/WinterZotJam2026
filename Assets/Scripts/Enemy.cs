@@ -140,7 +140,7 @@ public class Enemy : MonoBehaviour
     {
         // maybe add enemy death animations here
         GameManager.Instance.OnEnemyDeath();
-        Destroy(gameObject);
+        Destroy(gameObject.transform.parent.gameObject);
     }
 
     public void AlertEnemy(Vector2 location, bool isFleeing = false)

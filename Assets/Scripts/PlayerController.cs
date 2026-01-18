@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
     {
         _canAttack = false;
         Vector3 mousePosition = GetCurrentMouseWorldPosition();
-        Debug.Log(transform.position + mousePosition.normalized * _attackRange);
+        //Debug.Log(transform.position + mousePosition.normalized * _attackRange);
 
         AudioManager.Instance.PlayAudio(AudioType.PlayerAttack);
 
@@ -159,9 +159,9 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.CompareTag("NPC"))
             {
-                // Deal damage to NPC  
+                // Deal damage to NPC
+                collider.gameObject.GetComponentInChildren<Enemy>().KillEnemy();
                 AudioManager.Instance.PlayAudio(AudioType.NPCDeath);
-                collider.gameObject.GetComponent<Enemy>().KillEnemy();
             }
             else if (collider.CompareTag("Struct"))
             {
