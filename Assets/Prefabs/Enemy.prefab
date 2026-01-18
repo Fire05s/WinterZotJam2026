@@ -344,13 +344,12 @@ MonoBehaviour:
   _fleeSpeed: 4
   _waitTime: 1
   _inspectionTime: 1
-  _viewDistance: 5
-  _viewAngle: 50
+  _viewDistance: 3
+  _viewAngle: 35
   _rotationSpeed: 5
   _fov: {fileID: 771150706369888862}
   _blinkController: {fileID: 4276057453144166875}
   _patrolPoints:
-  - {fileID: 0}
   - {fileID: 0}
   _exitPoint: {fileID: 0}
   _alertCollider: {fileID: 8773148350051285554}
@@ -374,6 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BlinkController
   _blinkReactionTime: 0.3
   _passiveCooldown: 5
+  _cooldownVariability: 1
   _passiveBlinkDuration: 0.1
   _blinkIndicator: {fileID: 193884802944755534}
   _visionLight: {fileID: 8993606857968688774}
@@ -447,10 +447,10 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 36.362366
-  m_PointLightOuterAngle: 53.870003
+  m_PointLightInnerAngle: 35
+  m_PointLightOuterAngle: 45
   m_PointLightInnerRadius: 0.26
-  m_PointLightOuterRadius: 6.91
+  m_PointLightOuterRadius: 3
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
