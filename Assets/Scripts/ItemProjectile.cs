@@ -8,6 +8,7 @@ public class ItemProjectile : MonoBehaviour
     [SerializeField] float _maxDistance;
 
     private Vector3 _targetPosition;
+    private Vector3 _originPosition;
     private float _distanceTravelled;
     private float _targetDistance;
     private bool grounded = true;
@@ -27,8 +28,10 @@ public class ItemProjectile : MonoBehaviour
     public void InstantiateProjectile(Vector3 target)
     {
         grounded = false;
+        _projectileSpeed = 20;
         _distanceTravelled = 0f;
         _targetPosition = target;
+        _originPosition = this.transform.position;
         Vector3 temp = _targetPosition - transform.position;
         _targetDistance = temp.magnitude;
         if (temp.magnitude > _maxDistance) {
@@ -37,16 +40,27 @@ public class ItemProjectile : MonoBehaviour
         }
     }
 
-    [SerializeField] GameObject player;
+    [SerializeField] GameObject square; // TODO: REMOVE
+    [SerializeField] GameObject circle; // TODO: REMOVE
+    [SerializeField] GameObject triangle; // TODO: REMOVE
     private void Ricochet() {
         soundWave();
-        _targetDistance -= _distanceTravelled;
-        _distanceTravelled = 0f;
-        _targetPosition = transform.position; // DETERMINE IF WALL IS HORIZONTAL OR VERTICAL, IF HORIZONTAL, MAKE NEW VEC2 WITH SAME Y AS PLAYER, BUT SAME X
-        // IF VERTICAL, SAME X AS PLAYER, BUT SAME Y AS CURRENT PATH
+        //_projectileSpeed = 10;
+        //_distanceTravelled += 3;
 
-        _targetPosition = new Vector3(this.gameObject.transform.position.x + _distanceTravelled, player.transform.position.y, _targetPosition.z); // HORIZONTAL
-        // FIX X
+        // HORIZONTAL
+        square.transform.position = this.gameObject.transform.position; // TODO: REMOVE
+        circle.transform.position = _targetPosition; // TODO: REMOVE
+        float tempf = 0f;
+        if (_originPosition.x >= _targetPosition.x) {
+            tempf = _originPosition.x + _targetPosition.x / 2;
+        } else {
+            tempf = _originPosition.x - _targetPosition.x / 2;
+        }
+        Vector3 temp = new Vector3(tempf, _originPosition.y, _targetPosition.z); // HORIZONTAL WALL ONLY
+        temp = new Vector3(tempf, _originPosition.y, _targetPosition.z); // HORIZONTAL WALL ONLY
+        triangle.transform.position = temp; // TODO: REMOVE
+        _targetPosition = temp;
     }
 
     [SerializeField] float soundRadius;
@@ -63,12 +77,11 @@ public class ItemProjectile : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collider)
     {
         if (!grounded) {
-            if (collider.gameObject.layer == 6) { // Wall layer
-                Debug.Log("Hit a wall");
-                Ricochet();
-            } else if (collider.gameObject.CompareTag("NPC")) {
+            if (collider.gameObject.CompareTag("NPC")) {
                 collider.gameObject.GetComponentInChildren<Enemy>().KillEnemy();
                 Destroy(this.gameObject);
+            } else if (collider.gameObject.layer == 6) { // Wall layer
+                Ricochet();
             }
         }
     }
