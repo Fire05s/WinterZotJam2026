@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -48,6 +49,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
+    [Header("Death")]
+    [SerializeField] private AnimationClip _deathClip;
+    [SerializeField] private GameObject _bloodPrefab;
+
     private Transform _player;
 
     private int _patrolIndex;
@@ -55,6 +60,7 @@ public class Enemy : MonoBehaviour
     private Vector2 _lastDirection = Vector2.right; // Facing direction
     private Vector3 _lastAlertedPosition; // Where the alerted enemy will move to
     private bool _isFleeing = false;
+    private bool _isDead = false;
 
     private void Start()
     {
@@ -146,8 +152,10 @@ public class Enemy : MonoBehaviour
     public void KillEnemy()
     {
         // maybe add enemy death animations here
+        if (_isDead) return;
+        _isDead = false;
         GameManager.Instance.OnEnemyDeath();
-        Destroy(gameObject.transform.parent.gameObject);
+        StartCoroutine(Death());
     }
 
     public void AlertEnemy(Vector2 location, bool isFleeing = false)
@@ -191,6 +199,17 @@ public class Enemy : MonoBehaviour
         RaycastHit2D ray = Physics2D.Raycast(transform.position, dirToPlayer, _viewDistance, _obstacleLayer);
 
         return ray.collider == null; // false if there's a wall in the way
+    }
+
+    private IEnumerator Death()
+    {
+        _animator.SetTrigger("isDead");
+        AudioManager.Instance.PlayAudio(AudioType.NPCDeath);
+        _blinkController.DisableLight();
+        Instantiate(_bloodPrefab, transform.position, Quaternion.identity);
+        _agent.isStopped = true;
+        yield return new WaitForSeconds(_deathClip.length);
+        Destroy(transform.parent.gameObject);
     }
 
     private void UpdateFOV()
