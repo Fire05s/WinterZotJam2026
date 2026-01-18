@@ -108,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemProjectile
   _projectileSpeed: 20
   _maxDistance: 8
+  soundRadius: 4
 --- !u!61 &2748861526191388168
 BoxCollider2D:
   m_ObjectHideFlags: 0
