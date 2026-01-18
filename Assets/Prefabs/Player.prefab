@@ -368,7 +368,7 @@ GameObject:
   m_Component:
   - component: {fileID: 407274382472874588}
   - component: {fileID: 2749721108721117197}
-  - component: {fileID: 2851380481929169880}
+  - component: {fileID: 5121957713060745108}
   m_Layer: 7
   m_Name: SlashVFX
   m_TagString: Untagged
@@ -438,7 +438,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6240901989084350587, guid: 1bc45a174a3ea064b832e2363362b3e4, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -446,10 +446,10 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &2851380481929169880
+--- !u!95 &5121957713060745108
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
