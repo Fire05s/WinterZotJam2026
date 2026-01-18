@@ -53,6 +53,7 @@ MonoBehaviour:
   broken: 0
   multiHit: 0
   soundRadius: 5
+  sound: 10
 --- !u!50 &4301028108896055299
 Rigidbody2D:
   serializedVersion: 5
