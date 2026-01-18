@@ -75,7 +75,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 15fbe945e13fae043b25120f827ae585, type: 3}
   - Type: 7
     SoundAssets:
-    - {fileID: 8300000, guid: 3124b9d8b429e884c933c47d48de06bf, type: 3}
+    - {fileID: 8300000, guid: b6bef488dc36e4d8ea202a589642ed3b, type: 3}
   - Type: 9
     SoundAssets:
     - {fileID: 8300000, guid: 6c09de5115f54a34ea9507e6ecaa8e93, type: 3}
