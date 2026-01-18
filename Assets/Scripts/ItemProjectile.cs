@@ -25,13 +25,12 @@ public class ItemProjectile : MonoBehaviour
         Vector3 temp = _targetPosition - transform.position;
         Debug.Log(temp.magnitude);
         if (temp.magnitude > _maxDistance) {
-            Debug.Log("Too long");
             _targetPosition = transform.position + temp.normalized * _maxDistance;
         }
     }
 
     public void OnCollisionEnter2D(Collision2D collider)
     {
-        
+        Debug.Log(collider.gameObject.name);
     }
 }
