@@ -1,31 +1,19 @@
 fileFormatVersion: 2
-guid: a268f712bb782264aa0759de82d43658
+guid: 90efed2282bc3f8498602bd523d04d77
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8942188472243791076
-    second: player-monster-attack-Sheet_0
+      213: 3367275110365841083
+    second: scary-candle-Sheet_0
   - first:
-      213: -1794894626775972989
-    second: player-monster-attack-Sheet_1
+      213: 6440692055560531071
+    second: scary-candle-Sheet_1
   - first:
-      213: 4291138279656485309
-    second: player-monster-attack-Sheet_2
+      213: 6809002421717651612
+    second: scary-candle-Sheet_2
   - first:
-      213: 226725433683790341
-    second: player-monster-attack-Sheet_3
-  - first:
-      213: -7668572141498817800
-    second: player-monster-attack-Sheet_4
-  - first:
-      213: -5192479451345472149
-    second: player-monster-attack-Sheet_5
-  - first:
-      213: 7861246565274747794
-    second: player-monster-attack-Sheet_6
-  - first:
-      213: -7363566287451229614
-    second: player-monster-attack-Sheet_7
+      213: 4017322226103286366
+    second: scary-candle-Sheet_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -121,133 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player-monster-attack-Sheet_0
+      name: scary-candle-Sheet_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 4
-        width: 24
-        height: 55
+        x: 7
+        y: 34
+        width: 18
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c1bd05556f6f6e380800000000000000
-      internalID: -8942188472243791076
+      spriteID: bb6ce5e4fd6fabe20800000000000000
+      internalID: 3367275110365841083
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player-monster-attack-Sheet_1
+      name: scary-candle-Sheet_1
       rect:
         serializedVersion: 2
-        x: 43
-        y: 4
-        width: 74
-        height: 55
+        x: 39
+        y: 34
+        width: 18
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 383c2c1c8d04717e0800000000000000
-      internalID: -1794894626775972989
+      spriteID: f7cad5fdc4fe16950800000000000000
+      internalID: 6440692055560531071
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player-monster-attack-Sheet_2
+      name: scary-candle-Sheet_2
       rect:
         serializedVersion: 2
-        x: 107
-        y: 4
-        width: 74
-        height: 55
+        x: 7
+        y: 2
+        width: 18
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: db17109a78f2d8b30800000000000000
-      internalID: 4291138279656485309
+      spriteID: c90514d70af6e7e50800000000000000
+      internalID: 6809002421717651612
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player-monster-attack-Sheet_4
+      name: scary-candle-Sheet_3
       rect:
         serializedVersion: 2
-        x: 173
-        y: 4
-        width: 70
-        height: 55
+        x: 39
+        y: 2
+        width: 18
+        height: 30
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8f2a1836442c39590800000000000000
-      internalID: -7668572141498817800
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player-monster-attack-Sheet_6
-      rect:
-        serializedVersion: 2
-        x: 243
-        y: 4
-        width: 66
-        height: 55
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 29306f6b912c81d60800000000000000
-      internalID: 7861246565274747794
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player-monster-attack-Sheet_7
-      rect:
-        serializedVersion: 2
-        x: 323
-        y: 4
-        width: 50
-        height: 55
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2527d64b97b5fc990800000000000000
-      internalID: -7363566287451229614
+      spriteID: e5afa2ba74560c730800000000000000
+      internalID: 4017322226103286366
       vertices: []
       indices: 
       edges: []
@@ -256,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4db4eba84934a4a4487b5190d6588286
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -266,14 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      player-monster-attack-Sheet_0: -8942188472243791076
-      player-monster-attack-Sheet_1: -1794894626775972989
-      player-monster-attack-Sheet_2: 4291138279656485309
-      player-monster-attack-Sheet_3: 226725433683790341
-      player-monster-attack-Sheet_4: -7668572141498817800
-      player-monster-attack-Sheet_5: -5192479451345472149
-      player-monster-attack-Sheet_6: 7861246565274747794
-      player-monster-attack-Sheet_7: -7363566287451229614
+      scary-candle-Sheet_0: 3367275110365841083
+      scary-candle-Sheet_1: 6440692055560531071
+      scary-candle-Sheet_2: 6809002421717651612
+      scary-candle-Sheet_3: 4017322226103286366
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
