@@ -23,9 +23,6 @@ TextureImporter:
   - first:
       213: 7861246565274747794
     second: player-monster-attack-Sheet_6
-  - first:
-      213: -7363566287451229614
-    second: player-monster-attack-Sheet_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -124,9 +121,9 @@ TextureImporter:
       name: player-monster-attack-Sheet_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 4
-        width: 24
+        x: 26
+        y: 164
+        width: 75
         height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -146,9 +143,9 @@ TextureImporter:
       name: player-monster-attack-Sheet_1
       rect:
         serializedVersion: 2
-        x: 43
-        y: 4
-        width: 74
+        x: 154
+        y: 164
+        width: 75
         height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -168,9 +165,9 @@ TextureImporter:
       name: player-monster-attack-Sheet_2
       rect:
         serializedVersion: 2
-        x: 107
-        y: 4
-        width: 74
+        x: 282
+        y: 164
+        width: 75
         height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -190,9 +187,9 @@ TextureImporter:
       name: player-monster-attack-Sheet_4
       rect:
         serializedVersion: 2
-        x: 173
-        y: 4
-        width: 70
+        x: 26
+        y: 36
+        width: 75
         height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -212,9 +209,9 @@ TextureImporter:
       name: player-monster-attack-Sheet_6
       rect:
         serializedVersion: 2
-        x: 243
-        y: 4
-        width: 66
+        x: 154
+        y: 36
+        width: 75
         height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -230,33 +227,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: player-monster-attack-Sheet_7
-      rect:
-        serializedVersion: 2
-        x: 323
-        y: 4
-        width: 50
-        height: 55
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2527d64b97b5fc990800000000000000
-      internalID: -7363566287451229614
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4db4eba84934a4a4487b5190d6588286
+    spriteID: f04dfe7c7f5fee34b88c4541955af13b
     internalID: 0
     vertices: []
     indices: 
@@ -273,7 +248,6 @@ TextureImporter:
       player-monster-attack-Sheet_4: -7668572141498817800
       player-monster-attack-Sheet_5: -5192479451345472149
       player-monster-attack-Sheet_6: 7861246565274747794
-      player-monster-attack-Sheet_7: -7363566287451229614
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

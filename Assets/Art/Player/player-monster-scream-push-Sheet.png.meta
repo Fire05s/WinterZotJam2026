@@ -124,9 +124,9 @@ TextureImporter:
       name: player-monster-scream-push-Sheet_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 4
-        width: 60
+        x: 16
+        y: 164
+        width: 95
         height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -146,9 +146,9 @@ TextureImporter:
       name: player-monster-scream-push-Sheet_1
       rect:
         serializedVersion: 2
-        x: 67
-        y: 4
-        width: 60
+        x: 144
+        y: 164
+        width: 95
         height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -168,9 +168,9 @@ TextureImporter:
       name: player-monster-scream-push-Sheet_2
       rect:
         serializedVersion: 2
-        x: 131
-        y: 4
-        width: 60
+        x: 16
+        y: 36
+        width: 95
         height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -190,9 +190,9 @@ TextureImporter:
       name: player-monster-scream-push-Sheet_3
       rect:
         serializedVersion: 2
-        x: 195
-        y: 4
-        width: 60
+        x: 144
+        y: 36
+        width: 95
         height: 55
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -212,7 +212,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b7cc5afe9b195fe4f9cbc7becae96b70
+    spriteID: 95b60ac5cdabdae408149ce538003184
     internalID: 0
     vertices: []
     indices: 

@@ -108,12 +108,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   _camera: {fileID: 5024825145051320795}
-  _speedNormal: 3
+  _animator: {fileID: 6311631947132199258}
+  _speedNormal: 5
   _speedMultiplier: 2
   _interactLayer:
     serializedVersion: 2
     m_Bits: 8
-  _interactionCooldown: 0
+  _interactionCooldown: 1
   _interactRadius: 2
   _attackCooldown: 2
   _attackRadius: 3

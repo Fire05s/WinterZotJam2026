@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Required Components")]
     [SerializeField] private Camera _camera;
+    [SerializeField] private Animator _animator;
 
     [Header("Movement")]
     [SerializeField] private float _speedNormal;
@@ -54,6 +55,15 @@ public class PlayerController : MonoBehaviour
         _moveDirection = _inputSystem.Player.Move.ReadValue<Vector3>().normalized;
 
         transform.position = transform.position + _moveDirection * _speed * Time.deltaTime;
+
+        if (_moveDirection == Vector3.zero)
+        {
+            _animator.SetBool("isIdle", true);
+        }
+        else
+        {
+            _animator.SetBool("isWalking", true);
+        }
     }
 
     // Helper Functions
@@ -86,7 +96,8 @@ public class PlayerController : MonoBehaviour
         
         if (closestObject.CompareTag("Struct"))
         {
-            ToppleInteraction(closestObject);
+            StartCoroutine(ToppleInteraction(closestObject));
+            _animator.SetTrigger("isScreaming");
         }
         else if (closestObject.CompareTag("Item"))
         {
@@ -119,9 +130,10 @@ public class PlayerController : MonoBehaviour
 
     // Interact Actions
 
-    private void ToppleInteraction(Collider2D collider)
+    private IEnumerator ToppleInteraction(Collider2D collider)
     {
         collider.transform.parent.GetComponent<EnvironmentScript>().hit((Vector2) this.gameObject.transform.position);
+        yield return new WaitForSeconds(_interactionCooldown);
     }
 
     private void PickupInteraction(Collider2D collider)
@@ -157,6 +169,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(transform.position + mousePosition.normalized * _attackRange);
 
         AudioManager.Instance.PlayAudio(AudioType.PlayerAttack);
+        _animator.SetTrigger("isAttacking");
 
         foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position + mousePosition.normalized * _attackRange, _attackRadius))
         {
