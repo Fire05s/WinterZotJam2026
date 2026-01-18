@@ -93,7 +93,7 @@ public class EnvironmentScript : MonoBehaviour
     private void soundWave() { // Eminate out from radius
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(soundOrigin, soundRadius);
         foreach (var hitCollider in hitColliders) {
-            if (hitCollider.gameObject == this.gameObject || hitCollider.gameObject.CompareTag("NPC") == false) {
+            if (hitCollider.gameObject.CompareTag("NPC") == false) {
                 continue;
             }
             hitCollider.gameObject.GetComponentInChildren<Enemy>().AlertEnemy(soundOrigin);

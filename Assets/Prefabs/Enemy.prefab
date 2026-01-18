@@ -102,7 +102,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -226,16 +226,18 @@ MonoBehaviour:
   currentState: 1
   _agent: {fileID: 3484401120446193485}
   _patrolSpeed: 2
-  _chaseSpeed: 3.5
-  _fleeSpeed: 4
+  _chaseSpeed: 2
+  _fleeSpeed: 2
   _waitTime: 1
   _inspectionTime: 1
+  _alertFallback: 2
   _viewDistance: 3
   _viewAngle: 35
   _rotationSpeed: 5
   _fov: {fileID: 771150706369888862}
   _blinkController: {fileID: 4276057453144166875}
   _patrolPoints:
+  - {fileID: 0}
   - {fileID: 0}
   _exitPoint: {fileID: 0}
   _alertCollider: {fileID: 8773148350051285554}
