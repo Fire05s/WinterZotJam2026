@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private UIController _ui;
 
     [Header("Movement")]
     [SerializeField] private float _speedNormal;
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
         _inputSystem.Player.Enable();
         _inputSystem.Player.Interact.performed += OnInteract;  
         _inputSystem.Player.Attack.performed += OnAttack;
+        _inputSystem.Player.Menu.performed += OnMenu;
 
         _currentlyHeldItem = null;
 
@@ -58,6 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         _inputSystem.Player.Interact.performed -= OnInteract;
         _inputSystem.Player.Attack.performed -= OnAttack;
+        _inputSystem.Player.Menu.performed -= OnMenu;
         _inputSystem.Player.Disable();
         StopAllCoroutines();
     }
@@ -105,7 +109,13 @@ public class PlayerController : MonoBehaviour
     }
 
     // User Input
-
+    public void OnMenu(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            _ui.ToggleUI();
+        }
+    }
     public void OnInteract(InputAction.CallbackContext ctx)
     {
         if (!this) {
