@@ -7,6 +7,7 @@ public class BlinkController : MonoBehaviour
     [Header("Blink Settings")]
     [SerializeField] private float _blinkReactionTime = 0.3f;
     [SerializeField] private float _passiveCooldown = 5f;
+    [SerializeField] private float _cooldownVariability = 1f;
     [SerializeField] private float _passiveBlinkDuration = 0.1f;
 
     [Header("Blink Indicator")]
@@ -29,7 +30,7 @@ public class BlinkController : MonoBehaviour
         // Disables indicator on start
         if (_blinkIndicator.gameObject.activeSelf) _blinkIndicator.gameObject.SetActive(false);
         _blinkAnimator = _blinkIndicator.GetComponent<Animator>();
-        _blinkTimer = _passiveCooldown;
+        _blinkTimer = Random.Range(_passiveCooldown - _cooldownVariability, _passiveCooldown + _cooldownVariability); ;
 
         // Cache original light values
         _originalOuterRadius = _visionLight.pointLightOuterRadius;
@@ -41,7 +42,7 @@ public class BlinkController : MonoBehaviour
         if (_blinkTimer <= 0)
         {
             PassiveBlink();
-            _blinkTimer = _passiveCooldown;
+            _blinkTimer = Random.Range(_passiveCooldown - _cooldownVariability, _passiveCooldown + _cooldownVariability);
         }
         else
         {
