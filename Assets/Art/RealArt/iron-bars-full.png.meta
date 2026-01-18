@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 5cc1b12e04d040b4788052b9890d3df1
+guid: 5c6abadb2d0d29047acc5c8cba06129a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2732721935678540695
-    second: door-left_0
+      213: 3549686135999646060
+    second: iron-bars_0
+  - first:
+      213: -992950949126854353
+    second: iron-bars_1
+  - first:
+      213: 4954857960749028361
+    second: iron-bars_2
+  - first:
+      213: 7148462723320037893
+    second: iron-bars_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +55,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,7 +122,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: door-left_0
+      name: iron-bars_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 96476f9c0eb631ad0800000000000000
-      internalID: -2732721935678540695
+      spriteID: c694360dbb4034130800000000000000
+      internalID: 3549686135999646060
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: door-left_1
+      name: iron-bars_1
       rect:
         serializedVersion: 2
         x: 0
@@ -148,10 +157,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 349a96a3a3025dd4dae0caea555dba0e
-      internalID: 1784639057
+      spriteID: f2928e56f545832f0800000000000000
+      internalID: -992950949126854353
       vertices: []
       indices: 
       edges: []
@@ -172,8 +181,8 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":32.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      door-left_0: -2732721935678540695
-      door-left_1: 1784639057
+      iron-bars_0: 3549686135999646060
+      iron-bars_1: -992950949126854353
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
