@@ -121,7 +121,7 @@ MonoBehaviour:
   _interactRadius: 2
   _attackCooldown: 1
   _attackRadius: 1
-  _attackRange: 1
+  _attackRange: 0.5
   _attackClip: {fileID: 7400000, guid: c99e4e5a60d64204f8db2fd342119206, type: 2}
   slashTransform: {fileID: 407274382472874588}
   slashObject: {fileID: 7763205544777759489}

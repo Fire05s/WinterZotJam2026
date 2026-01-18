@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions.Must;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
@@ -53,6 +54,7 @@ public class Enemy : MonoBehaviour
     [Header("Death")]
     [SerializeField] private AnimationClip _deathClip;
     [SerializeField] private GameObject _bloodPrefab;
+    [SerializeField] private float soundRadius;
 
     private Transform _player;
 
@@ -152,6 +154,16 @@ public class Enemy : MonoBehaviour
 
     // HELPERS
 
+    private void soundWave() { // Eminate out from radius
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, soundRadius);
+        foreach (var hitCollider in hitColliders) {
+            if (hitCollider.gameObject.CompareTag("NPC") == false) {
+                continue;
+            }
+            hitCollider.gameObject.GetComponentInChildren<Enemy>().AlertEnemy(transform.position);
+        }
+    }
+
     public void KillEnemy()
     {
         // maybe add enemy death animations here
@@ -159,6 +171,7 @@ public class Enemy : MonoBehaviour
         _isDead = false;
         GameManager.Instance.OnEnemyDeath();
         StartCoroutine(Death());
+        soundWave();
     }
 
     public void AlertEnemy(Vector2 location, bool isFleeing = false)
