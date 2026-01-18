@@ -40,8 +40,6 @@ public class EnvironmentScript : MonoBehaviour
             }
         }
 
-        Debug.Log(direction);
-
         soundOrigin = new Vector2(destroyedObject.transform.position.x, destroyedObject.transform.position.y);
     }
 
@@ -87,6 +85,7 @@ public class EnvironmentScript : MonoBehaviour
                 continue;
             }
             hitCollider.gameObject.GetComponentInChildren<Enemy>().AlertEnemy(soundOrigin);
+            hitCollider.gameObject.GetComponentInChildren<BlinkController>().StartBlink(0.33f, 0.34f, 0.33f);
         }
     }
 
