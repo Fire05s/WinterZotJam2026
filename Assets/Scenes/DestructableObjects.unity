@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 14232590}
   m_Layer: 0
   m_Name: ThinTable
-  m_TagString: Untagged
+  m_TagString: Struct
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 552748472}
   m_Layer: 0
   m_Name: BigTable
-  m_TagString: Untagged
+  m_TagString: Struct
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -474,7 +474,7 @@ GameObject:
   - component: {fileID: 593971763}
   m_Layer: 0
   m_Name: Chains
-  m_TagString: Untagged
+  m_TagString: Struct
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1214,7 +1214,7 @@ GameObject:
   - component: {fileID: 1117549462}
   m_Layer: 0
   m_Name: Torch
-  m_TagString: Untagged
+  m_TagString: Struct
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1886,7 +1886,7 @@ GameObject:
   - component: {fileID: 1689709875}
   m_Layer: 0
   m_Name: Chair
-  m_TagString: Untagged
+  m_TagString: Struct
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1968,7 +1968,7 @@ GameObject:
   - component: {fileID: 1724477707}
   m_Layer: 0
   m_Name: Bookshelf
-  m_TagString: Untagged
+  m_TagString: Struct
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
