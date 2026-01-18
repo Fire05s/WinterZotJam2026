@@ -120,6 +120,7 @@ MonoBehaviour:
   _attackCooldown: 1
   _attackRadius: 1
   _attackRange: 1
+  _attackClip: {fileID: 7400000, guid: c99e4e5a60d64204f8db2fd342119206, type: 2}
 --- !u!50 &6216060925085716215
 Rigidbody2D:
   serializedVersion: 5

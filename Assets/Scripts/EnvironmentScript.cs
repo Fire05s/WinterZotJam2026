@@ -78,8 +78,8 @@ public class EnvironmentScript : MonoBehaviour
         //Debug.Log("Play Animation"); // TODO: Implement animation
 
         // rebuild nav mesh
-        NavMeshSurface navMesh = GameObject.FindGameObjectWithTag("NavMesh").GetComponent<NavMeshSurface>();
-        navMesh.BuildNavMesh();
+        NavMeshSurface navMesh = GameObject.FindGameObjectWithTag("NavMesh")?.GetComponent<NavMeshSurface>();
+        navMesh?.BuildNavMesh();
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(soundOrigin, soundRadius);
         foreach (var hitCollider in hitColliders) {
             if (hitCollider.gameObject == this.gameObject || hitCollider.gameObject.CompareTag("NPC") == false) {

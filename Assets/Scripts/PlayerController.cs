@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _attackCooldown;
     [SerializeField] private float _attackRadius;
     [SerializeField] private float _attackRange;
-    
+    [SerializeField] private AnimationClip _attackClip;
+
     // Data related to Player Logic
     private InputSystem_Actions _inputSystem;
     private GameObject _currentlyHeldItem;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _moveDirection;
     private float _speed;
     private bool _canAttack;
+    private bool _isAttacking;
 
 
     void Awake()
@@ -62,7 +64,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         _moveDirection = _inputSystem.Player.Move.ReadValue<Vector3>().normalized;
-        Debug.Log(_moveDirection);
         transform.position = transform.position + _moveDirection * _speed * Time.deltaTime;
         UpdateAnimations();
     }
@@ -78,6 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimations()
     {
+        if (_isAttacking) return;
         if (_moveDirection.magnitude < 0.1f || Mathf.Abs(_moveDirection.y) == 1f)
         {
             // faces front
@@ -180,11 +182,15 @@ public class PlayerController : MonoBehaviour
     private IEnumerator SlashAttack()
     {
         _canAttack = false;
+        _isAttacking = true;
         Vector3 mousePosition = GetCurrentMouseWorldPosition();
+        Vector3 direction = (mousePosition - transform.position).normalized;
+        Debug.Log(direction);
         //Debug.Log(transform.position + mousePosition.normalized * _attackRange);
 
         AudioManager.Instance.PlayAudio(AudioType.PlayerAttack);
         _animator.SetTrigger("isAttacking");
+        _spriteRenderer.flipX = direction.x < 0f;
 
         foreach (Collider2D collider in Physics2D.OverlapCircleAll(transform.position + mousePosition.normalized * _attackRange, _attackRadius))
         {
@@ -199,6 +205,10 @@ public class PlayerController : MonoBehaviour
                 // Play attack sound
             }
         }
+
+        yield return new WaitForSeconds(_attackClip.length);
+        _isAttacking = false;
+
         yield return new WaitForSeconds(_attackCooldown);
         _canAttack = true;
     }
