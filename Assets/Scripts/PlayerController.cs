@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
     {
         _canAttack = false;
         Vector3 mousePosition = GetCurrentMouseWorldPosition();
-        Debug.Log(transform.position + mousePosition.normalized * _attackRange);
+        //Debug.Log(transform.position + mousePosition.normalized * _attackRange);
 
         AudioManager.Instance.PlayAudio(AudioType.PlayerAttack);
 
