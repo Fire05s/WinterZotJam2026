@@ -66,6 +66,7 @@ public class Enemy : MonoBehaviour
     private Vector3 _lastAlertedPosition; // Where the alerted enemy will move to
     private bool _isFleeing = false;
     private bool _isDead = false;
+    private bool _isAlert = false;
 
     private void Start()
     {
@@ -136,7 +137,7 @@ public class Enemy : MonoBehaviour
     {
         MoveTowards(_lastAlertedPosition, _chaseSpeed);
         if (_agent.velocity.magnitude < 0.01f) _alertedTime -= Time.deltaTime;
-
+        AudioManager.Instance.PlayAudio(AudioType.NPCCurious);
         // Location reached (allows enemy to break alert if it's stuck)
         if (Vector2.Distance(transform.position, _lastAlertedPosition) < 0.1f || _alertedTime <= 0f)
         {
@@ -149,6 +150,7 @@ public class Enemy : MonoBehaviour
         MoveTowards(_exitPoint.position, _fleeSpeed);
         if (_isFleeing) return;
         _isFleeing = true;
+        AudioManager.Instance.PlayAudio(AudioType.NPCAlert);
         _indicatorController.TriggerFlee();
         _alertCollider.SetActive(true);
         GameManager.Instance.OpenExit();

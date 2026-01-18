@@ -82,6 +82,15 @@ MonoBehaviour:
   - Type: 10
     SoundAssets:
     - {fileID: 8300000, guid: e2f8385c6aff55945a4408e76e983594, type: 3}
+  - Type: 11
+    SoundAssets:
+    - {fileID: 8300000, guid: 953376e69588c4055afc38d23664326a, type: 3}
+  - Type: 12
+    SoundAssets:
+    - {fileID: 8300000, guid: 95c31481cc1e3401ca413d1239820158, type: 3}
+  - Type: 13
+    SoundAssets:
+    - {fileID: 8300000, guid: 502e1ec6d3a6c4513bfa17ba58283fcf, type: 3}
 --- !u!82 &-4702986538723602877
 AudioSource:
   m_ObjectHideFlags: 0
@@ -97,7 +106,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.4
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -226,7 +235,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
