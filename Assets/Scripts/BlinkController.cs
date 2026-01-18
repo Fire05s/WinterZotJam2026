@@ -58,6 +58,11 @@ public class BlinkController : MonoBehaviour
         _visionLight.pointLightInnerRadius = _originalInnerRadius;
     }
 
+    public void DisableLight()
+    {
+        _visionLight.enabled = false;
+    }
+
     public void StartBlink(float closeTime, float duration, float openTime)
     {
         if (IsBlinking) return;

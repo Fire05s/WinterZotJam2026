@@ -28,13 +28,11 @@ public class ItemProjectile : MonoBehaviour
         }
     }
 
-    public void OnTriggerEnter2D(Collision2D collider)
+    public void OnCollisionEnter2D(Collision2D collider)
     {
         // TODO: If it is a struct and has pass through then don't bounce back
-        Debug.Log("Collision");
         if (collider.gameObject.CompareTag("NPC")) {
-            collider.gameObject.GetComponent<Enemy>().KillEnemy();
-            // TODO: Destroy throwable
+            collider.gameObject.GetComponentInChildren<Enemy>().KillEnemy();
             Destroy(this.gameObject);
         }
     }
