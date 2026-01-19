@@ -66,7 +66,7 @@ public class Enemy : MonoBehaviour
     private Vector3 _lastAlertedPosition; // Where the alerted enemy will move to
     private bool _isFleeing = false;
     private bool _isDead = false;
-    private bool _isAlert = false;
+    //private bool _isAlert = false;
 
     private void Start()
     {
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
     {
         UpdateFOV();
         UpdateAnimation();
-        if (CanSeePlayer())
+        if (CanSeePlayer() && !_isDead)
         {
             currentState = EnemyState.Flee;
         }
@@ -123,6 +123,13 @@ public class Enemy : MonoBehaviour
         if (_patrolPoints.Length == 0) return;
 
         Transform target = _patrolPoints[_patrolIndex];
+        if (target == null)
+        {
+            // if patrol point is not set, move to next one
+            _patrolIndex = (_patrolIndex + 1) % _patrolPoints.Length;
+            SetIdle(_waitTime);
+            return;
+        }
         MoveTowards(target.position, _patrolSpeed);
 
         // Location reached
