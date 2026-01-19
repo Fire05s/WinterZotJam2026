@@ -2237,7 +2237,11 @@ MonoBehaviour:
   m_ShadowCastingSource: 2
   m_ShadowMesh:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     m_Mesh: {fileID: 2105302325}
+=======
+    m_Mesh: {fileID: 1845719848}
+>>>>>>> Stashed changes
 =======
     m_Mesh: {fileID: 1845719848}
 >>>>>>> Stashed changes
@@ -8685,6 +8689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!43 &2105302325
 Mesh:
   m_ObjectHideFlags: 0
@@ -8863,6 +8868,8 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 --- !u!1660057539 &9223372036854775807

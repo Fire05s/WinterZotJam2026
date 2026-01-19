@@ -360,8 +360,13 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 --- !u!43 &70082367
 Mesh:
+=======
+--- !u!1 &65244124
+GameObject:
+>>>>>>> Stashed changes
 =======
 --- !u!1 &65244124
 GameObject:
@@ -370,6 +375,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
   m_Name: 
   serializedVersion: 12
@@ -544,6 +550,8 @@ GameObject:
         m_IndexStart: 0
         m_IndexCount: 0
 =======
+=======
+>>>>>>> Stashed changes
   serializedVersion: 6
   m_Component:
   - component: {fileID: 65244125}
@@ -571,6 +579,9 @@ Transform:
   - {fileID: 1427213165}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 --- !u!1001 &130050814
 PrefabInstance:
@@ -8102,7 +8113,11 @@ MonoBehaviour:
   m_ShadowCastingSource: 2
   m_ShadowMesh:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     m_Mesh: {fileID: 70082367}
+=======
+    m_Mesh: {fileID: 20530840}
+>>>>>>> Stashed changes
 =======
     m_Mesh: {fileID: 20530840}
 >>>>>>> Stashed changes
