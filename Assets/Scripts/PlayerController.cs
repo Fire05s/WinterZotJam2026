@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private UIController _ui;
+    [SerializeField] private UIHeldItem _itemUI;
 
     [Header("Movement")]
     [SerializeField] private float _speedNormal;
@@ -180,6 +181,7 @@ public class PlayerController : MonoBehaviour
         if (_currentlyHeldItem) return;
 
         _currentlyHeldItem = collider.gameObject;
+        _itemUI.SetHeldItem(_currentlyHeldItem);
         collider.gameObject.SetActive(value: false);
     }
 
@@ -197,6 +199,7 @@ public class PlayerController : MonoBehaviour
         AudioManager.Instance.PlayAudio(AudioType.PlayerThrow);
 
         _currentlyHeldItem = null;
+        _itemUI.Clear();
         yield return new WaitForSeconds(_attackCooldown);
 
         _canAttack = true;
